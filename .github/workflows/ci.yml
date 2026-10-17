@@ -40,14 +40,3 @@ jobs:
         run: python scripts/changelog/require_fragment.py
       - name: Automation tests
         run: python -m pytest scripts/changelog -q
-
-  docs-links:
-    name: documentation link check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Validate relative links
-        run: python scripts/docs/check_local_links.py

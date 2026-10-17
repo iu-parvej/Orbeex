@@ -15,14 +15,9 @@ permissions:
   contents: read
   issues: write
 
-# RustSec advisories for the Rust dependency tree are checked by the
-# `deny` workflow (cargo-deny [advisories], runs on every push/PR — see
-# .github/workflows/deny.yml). This workflow adds Python-side auditing.
-#
-# Note: the earlier cargo-audit job (rustsec/audit-check) was removed:
-# it compiles the latest cargo-audit from source on every run and broke
-# against the pinned Rust toolchain (see commit history for detail).
-# cargo-deny [advisories] covers the same database and is pinned/toolchain-stable.
+# Rust dependency advisories (RustSec) will be checked with cargo-deny
+# [advisories] once the Rust toolchain lands (see .gitignore, "Rust scaffolding").
+# Until then this workflow covers only the Python-side automation dependencies.
 
 jobs:
   pip-audit:
