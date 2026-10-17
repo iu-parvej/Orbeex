@@ -1,0 +1,37 @@
+name: audit
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # daily 07:00 UTC
+  workflow_dispatch:
+  push:
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "**/Cargo.toml"
+      - "scripts/**"
+
+permissions:
+  contents: read
+  issues: write
+
+# RustSec advisories for the Rust dependency tree are checked by the
+# `deny` workflow (cargo-deny [advisories], runs on every push/PR — see
+# .github/workflows/deny.yml). This workflow adds Python-side auditing.
+#
+# Note: the earlier cargo-audit job (rustsec/audit-check) was removed:
+# it compiles the latest cargo-audit from source on every run and broke
+# against the pinned Rust toolchain (see commit history for detail).
+# cargo-deny [advisories] covers the same database and is pinned/toolchain-stable.
+
+jobs:
+  pip-audit:
+    name: pip-audit (automation deps)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pip-audit
+      - run: pip-audit --strict || true # advisory until automation deps are pinned

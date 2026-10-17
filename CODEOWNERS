@@ -1,0 +1,34 @@
+# CODEOWNERS
+# Default owners for everything in the repository.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Replace @orbeex-core / @orbeex-* with real GitHub teams/users after the org is set up.
+
+# Default — core team reviews everything
+*                                   @orbeex-core
+
+# Core engine (highest-risk, most-scrutinized code)
+/software/modules/                  @orbeex-core @orbeex-engine
+/crates/                            @orbeex-core @orbeex-engine
+
+# AI orchestration
+/software/modules/orbeex-ai/        @orbeex-core @orbeex-ai
+/ai/                                @orbeex-core @orbeex-ai
+
+# Security & compliance
+/SECURITY.md                        @orbeex-core @orbeex-security
+/licensing/                         @orbeex-core @orbeex-security
+/.github/workflows/                 @orbeex-core @orbeex-security
+
+# Governance, decisions, planning
+/brain/decisions/                   @orbeex-core
+/GOVERNANCE.md                      @orbeex-core
+/MASTER_BLUEPRINT.md                @orbeex-core
+/plan/                              @orbeex-core
+
+# Docs
+/docs-site/                         @orbeex-core @orbeex-docs
+/docs/                              @orbeex-core @orbeex-docs
+
+# Automation
+/scripts/                           @orbeex-core @orbeex-infra

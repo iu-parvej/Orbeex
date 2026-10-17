@@ -1,0 +1,133 @@
+# ── Rust ─────────────────────────────────────────────────────────────
+target/
+**/*.rs.bk
+*.pdb
+# Keep Cargo.lock committed for applications (reproducible builds)
+# Cargo.lock
+
+# ── Build outputs / artifacts ────────────────────────────────────────
+/build/
+/dist/
+/out/
+*.app
+
+# ── Node (docs-site) ─────────────────────────────────────────────────
+node_modules/
+.Docusaurus/
+.next/
+.cache/
+.npm/
+*.tsbuildinfo
+
+# ── Mintlify CLI artifacts (see docs-site/MINTLIFY-GUIDE.md) ─────────
+.mintlify/
+tests/mint-test/
+
+# ── Test / coverage ──────────────────────────────────────────────────
+coverage/
+*.lcov
+*.profraw
+*.profdata
+benchmark-results/
+
+# ── Python ───────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# ── Secrets (NEVER commit) ───────────────────────────────────────────
+# Environment files (negation must stay LAST in this block)
+.env
+.env.*
+.envrc
+*.env
+# Exception: the template is safe to commit.
+!.env.example
+
+# Local agent / tool secrets
+.kilo/kilo.local.json
+.kilo/kilo.local.jsonc
+.kilo/secrets.env
+
+# Keys and certificates
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.der
+id_rsa
+id_ed25519
+*_rsa
+*_ed25519
+
+# Credential files
+secrets/
+credentials/
+.credentials
+*.secret
+*.secrets
+*.token
+*.creds
+auth.json
+service-account*.json
+
+# Cloud / tool auth
+.aws/
+.azure/
+.gcloud/
+.netrc
+.docker/config.json
+.npmrc
+.pypirc
+.cargo/credentials.toml
+
+# ── OS / editor ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# ── Logs / temp ──────────────────────────────────────────────────────
+*.log
+tmp/
+temp/
+
+# -- Internal work product (never public; mirrored separately) --------
+/brain/
+/plan/
+/research/
+/features/
+/releases/
+/ai/
+/assets/
+# Public docs: source stays local; published via Mintlify MCP (see ADR-0016)
+/documentation/
+# Legacy docs folder retired (live content lives in the Mintlify project)
+/docs-site/
+/MASTER_BLUEPRINT.md
+/kilo.local.*
+.kilo/
+/scripts/docs/
+
+# -- Rust scaffolding (returns with the first development milestone) --
+/Cargo.toml
+/Cargo.lock
+/rust-toolchain.toml
+/rustfmt.toml
+/clippy.toml
+/deny.toml
+/Dockerfile
+/.dockerignore
+/.devcontainer/
+/software/

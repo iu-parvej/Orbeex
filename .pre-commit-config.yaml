@@ -1,0 +1,51 @@
+# Pre-commit hooks — run these checks locally BEFORE committing.
+# Install once:  pip install pre-commit && pre-commit install
+# Run manually:  pre-commit run --all-files
+#
+# Mirrors the CI gates so secrets and lint errors never reach the public repo.
+# Rust hooks return with the first development milestone (see .gitignore).
+
+repos:
+  # Secret scanning (most important for a public repo)
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+
+  # Basic hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=2048"]
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args: ["--markdown-linebreak-ext=md"]
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: forbid-submodules
+
+  # Python automation (scripts/)
+  - repo: local
+    hooks:
+      - id: orbeex-validate
+        name: changelog & registry validate
+        entry: python scripts/changelog/orbeex.py validate-all
+        language: system
+        pass_filenames: false
+      - id: pytest-scripts
+        name: pytest (scripts)
+        entry: python -m pytest scripts/changelog -q
+        language: system
+        pass_filenames: false
+      - id: docs-links
+        name: documentation link check
+        entry: python scripts/docs/check_local_links.py
+        language: system
+        pass_filenames: false

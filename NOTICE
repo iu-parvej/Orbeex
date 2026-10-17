@@ -1,0 +1,23 @@
+Orbeex
+Copyright 2026 The Orbeex Contributors
+
+This product includes software developed by the Orbeex project
+(https://github.com/orbeex/orbeex).
+
+Licensed under the Apache License, Version 2.0. See LICENSE for the full text.
+
+-------------------------------------------------------------------------------
+THIRD-PARTY NOTICES
+-------------------------------------------------------------------------------
+
+Third-party dependencies and their licenses are inventoried in
+licensing/third-party/inventory.md and enforced by cargo-deny (deny.toml).
+
+The generated NOTICE for a release is produced by the release pipeline and
+includes the full attribution for all bundled dependencies.
+
+-------------------------------------------------------------------------------
+THIRD-PARTY DEPENDENCIES
+-------------------------------------------------------------------------------
+
+(none recorded yet)

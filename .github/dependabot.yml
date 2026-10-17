@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0  # paused: re-enable when other contributors exist
+    labels: ["dependencies", "ci"]
+    commit-message:
+      prefix: "ci(deps)"
+
+  # Python automation deps (if pinned via requirements)
+  - package-ecosystem: pip
+    directory: "/scripts"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0  # paused
+    labels: ["dependencies", "python"]
+    commit-message:
+      prefix: "build(deps)"
