@@ -85,3 +85,9 @@ Full enterprise-readiness gap analysis complete →
 
 Keep this file current at the end of each working session. Reflect: what changed, what's
 next, what's blocked. This is the fastest way for an AI to resume work.
+
+## Public Docs Live (2026-10-17)
+
+- Mintlify site live at https://orbeex.mintlify.app (project portfolioofparvej/orbeex).
+- New workflow: pages sourced in documentation/, pushed directly to Mintlify via MCP; broad-audience tone.
+- 11 pages live; rewrites: introduction, quickstart; new: how-it-works, working-with-ai, your-data-and-privacy.

@@ -48,6 +48,11 @@ venv/
 # Exception: the template is safe to commit.
 !.env.example
 
+# Local agent / tool secrets
+.kilo/kilo.local.json
+.kilo/kilo.local.jsonc
+.kilo/secrets.env
+
 # Keys and certificates
 *.key
 *.pem

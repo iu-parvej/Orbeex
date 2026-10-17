@@ -150,3 +150,18 @@ LLMs; opt-in and reversible AI features; local-model support for full isolation.
 **Next:** same as Session 5 — GitHub remote, push protection, branch protection.
 
 ---
+
+# Session 6b — 2026-10-17 — Mintlify connected; new documentation workflow
+
+**Outcome:** Mintlify MCP connection confirmed working (pinned, project `portfolioofparvej/orbeex`, live at https://orbeex.mintlify.app). New documentation workflow established: source pages in `documentation/`, pushed directly to Mintlify via MCP tools (Mintlify publish commitSha `8302c9f4` — live). GitHub push not required for docs.
+
+**Published (commit 8302c9f4, live):**
+- Rewrote `introduction` and `quickstart` for a broad, global audience.
+- New pages: `how-it-works`, `working-with-ai`, `your-data-and-privacy`.
+- Nav: pages ordered under "Documentation" group.
+
+**Audit before changes:** 8 deployed pages, 0 pending edits, branch `main`.
+
+**Why:** user directed — docs for broad audience; store in `documentation/`; push directly to Mintlify bypassing GitHub; content derived from `plan/` and `brain/`.
+
+---

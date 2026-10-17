@@ -1,0 +1,1 @@
+{"$schema": "https://app.kilo.ai/config.json", "mcp": {"Mintlify": {"type": "remote", "url": "https://mcp.mintlify.com", "enabled": true}}}
