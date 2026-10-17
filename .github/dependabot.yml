@@ -1,0 +1,38 @@
+version: 2
+updates:
+  # Rust dependencies
+  - package-ecosystem: cargo
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    labels: ["dependencies", "rust"]
+    commit-message:
+      prefix: "build(deps)"
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels: ["dependencies", "ci"]
+    commit-message:
+      prefix: "ci(deps)"
+
+  # docs-site npm (Mintlify CLI tooling)
+  - package-ecosystem: npm
+    directory: "/docs-site"
+    schedule:
+      interval: monthly
+    labels: ["dependencies", "docs"]
+    commit-message:
+      prefix: "build(deps)"
+
+  # Python automation deps (if pinned via requirements)
+  - package-ecosystem: pip
+    directory: "/scripts"
+    schedule:
+      interval: monthly
+    labels: ["dependencies", "python"]
+    commit-message:
+      prefix: "build(deps)"

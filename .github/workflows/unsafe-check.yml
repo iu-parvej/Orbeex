@@ -1,0 +1,35 @@
+name: unsafe-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  forbid-unsafe:
+    name: forbid unsafe_code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - name: Fail on any '#![forbid(unsafe_code)]' removal or raw unsafe
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Every crate root must forbid unsafe.
+          missing=0
+          while IFS= read -r lib; do
+            if ! grep -q 'forbid(unsafe_code)' "$lib"; then
+              echo "::error file=$lib::missing #![forbid(unsafe_code)]"
+              missing=1
+            fi
+          done < <(find software -name 'lib.rs' -o -name 'main.rs')
+          # No raw `unsafe` blocks outside an audited allow-list.
+          if grep -rn --include='*.rs' -E '\bunsafe\b' software \
+               | grep -v 'forbid(unsafe_code)' | grep -v 'unsafe_code'; then
+            echo "::error::raw 'unsafe' usage found; requires an ADR-approved exception"
+            missing=1
+          fi
+          exit $missing

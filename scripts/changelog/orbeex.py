@@ -80,12 +80,15 @@ def _strip_comment(line: str) -> str:
     return "".join(out).rstrip()
 
 
-def _parse_scalar(text: str):
+def _parse_scalar(text: str) -> object:
     text = text.strip()
     if text in ("null", "~", ""):
         return None
-    if text.lower() in ("true", "false"):
-        return text.lower() == "true"
+    low = text.lower()
+    if low in ("true", "yes", "on"):
+        return True
+    if low in ("false", "no", "off"):
+        return False
     if text.startswith("[") and text.endswith("]"):
         inner = text[1:-1].strip()
         if not inner:
@@ -94,6 +97,12 @@ def _parse_scalar(text: str):
     if (text.startswith('"') and text.endswith('"')) or \
        (text.startswith("'") and text.endswith("'")):
         return text[1:-1]
+    # Integers (avoid treating "1.2.3" or "F-0001" as numbers).
+    if re.fullmatch(r"-?\d+", text):
+        try:
+            return int(text)
+        except ValueError:
+            return text
     return text
 
 
@@ -114,10 +123,30 @@ class RegistryFeature:
 
 
 def load_registry(path: Path) -> tuple[dict, list[RegistryFeature]]:
-    """Parse the registry file into (meta, features). Raises ValueError on syntax error."""
+    """Parse the registry file into (meta, features).
+
+    Uses PyYAML when available (robust); otherwise falls back to a constrained
+    stdlib parser sufficient for the registry schema. Raises ValueError on error.
+    """
     if not path.exists():
         raise ValueError(f"registry not found: {path}")
     text = path.read_text(encoding="utf-8")
+
+    try:
+        import yaml  # type: ignore[import-untyped]
+
+        data = yaml.safe_load(text) or {}
+        if not isinstance(data, dict):
+            raise ValueError(f"{path}: top level must be a mapping")
+        meta = {k: v for k, v in data.items() if k != "features"}
+        features = [_build_feature(dict(f), 0) for f in (data.get("features") or [])]
+        return meta, features
+    except ImportError:
+        return _load_registry_fallback(path, text)
+
+
+def _load_registry_fallback(path: Path, text: str) -> tuple[dict, list[RegistryFeature]]:
+    """Constrained stdlib parser for the registry schema (no PyYAML available)."""
     lines = text.splitlines()
 
     meta: dict = {}
@@ -144,7 +173,6 @@ def load_registry(path: Path) -> tuple[dict, list[RegistryFeature]]:
 
         if in_features:
             if stripped.startswith("- "):
-                # new feature entry
                 if cur is not None:
                     features.append(_build_feature(cur, lineno))
                 cur = {}
@@ -386,7 +414,7 @@ def sync_docs(strict: bool) -> int:
 # Commands
 # ---------------------------------------------------------------------------
 
-def cmd_validate_fragment(args) -> int:
+def cmd_validate_fragment(args: argparse.Namespace) -> int:
     path = Path(args.path)
     if not path.exists():
         print(f"{ANSI_RED}error:{ANSI_RESET} not found: {path}")
@@ -396,23 +424,23 @@ def cmd_validate_fragment(args) -> int:
         ids = {f.id for f in features}
         frag = load_fragment(path)
         errors = validate_fragment(frag, ids)
-    except ValueError as e:
-        print(f"{ANSI_RED}error:{ANSI_RESET} {e}")
+    except ValueError as exc:
+        print(f"{ANSI_RED}error:{ANSI_RESET} {exc}")
         return 1
     if errors:
-        for e in errors:
-            print(f"{ANSI_RED}FAIL{ANSI_RESET} {e}")
+        for msg in errors:
+            print(f"{ANSI_RED}FAIL{ANSI_RESET} {msg}")
         return 1
     print(f"{ANSI_GREEN}OK{ANSI_RESET} {path.name}")
     return 0
 
 
-def cmd_validate_all(args) -> int:
+def cmd_validate_all(args: argparse.Namespace) -> int:
     errors: list[str] = []
     try:
         _, features = load_registry(REGISTRY_FILE)
-    except ValueError as e:
-        print(f"{ANSI_RED}error:{ANSI_RESET} {e}")
+    except ValueError as exc:
+        print(f"{ANSI_RED}error:{ANSI_RESET} {exc}")
         return 1
     errors += validate_registry(features)
     ids = {f.id for f in features}
@@ -421,12 +449,12 @@ def cmd_validate_all(args) -> int:
     for p in frags:
         try:
             errors += validate_fragment(load_fragment(p), ids)
-        except ValueError as e:
-            errors.append(str(e))
+        except ValueError as exc:
+            errors.append(str(exc))
 
     if errors:
-        for e in errors:
-            print(f"{ANSI_RED}FAIL{ANSI_RESET} {e}")
+        for msg in errors:
+            print(f"{ANSI_RED}FAIL{ANSI_RESET} {msg}")
         print(f"{ANSI_RED}{len(errors)} error(s).{ANSI_RESET}")
         return 1
     print(f"{ANSI_GREEN}OK{ANSI_RESET} {len(frags)} fragment(s), "
@@ -434,23 +462,23 @@ def cmd_validate_all(args) -> int:
     return 0
 
 
-def cmd_compile(args) -> int:
+def cmd_compile(args: argparse.Namespace) -> int:
     try:
         return compile_release(args.version, args.date, args.keep)
-    except ValueError as e:
-        print(f"{ANSI_RED}error:{ANSI_RESET} {e}")
+    except ValueError as exc:
+        print(f"{ANSI_RED}error:{ANSI_RESET} {exc}")
         return 1
 
 
-def cmd_sync_docs(args) -> int:
+def cmd_sync_docs(args: argparse.Namespace) -> int:
     try:
         return sync_docs(args.strict)
-    except ValueError as e:
-        print(f"{ANSI_RED}error:{ANSI_RESET} {e}")
+    except ValueError as exc:
+        print(f"{ANSI_RED}error:{ANSI_RESET} {exc}")
         return 1
 
 
-def cmd_new_fragment(args) -> int:
+def cmd_new_fragment(args: argparse.Namespace) -> int:
     ctype = args.type
     if ctype not in VALID_TYPES:
         print(f"{ANSI_RED}error:{ANSI_RESET} invalid type '{ctype}'")
