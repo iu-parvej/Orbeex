@@ -1,0 +1,25 @@
+[package]
+name = "orbeex-core"
+description = "Orbeex core domain types: Operation, errors, identifiers."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+categories.workspace = true
+keywords.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+uuid.workspace = true
+time.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

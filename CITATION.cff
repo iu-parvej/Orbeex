@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use Orbeex in your research or product, please cite it as below."
+title: "Orbeex"
+abstract: >-
+  Orbeex is an open-source, AI-native Geographic Information System (GIS) written in Rust.
+  It turns natural language into reviewable, reversible, auditable geospatial operations
+  executed by a high-performance native engine, with multi-LLM support and zero vendor lock-in.
+type: software
+license: Apache-2.0
+license-url: "https://www.apache.org/licenses/LICENSE-2.0"
+repository-code: "https://github.com/orbeex/orbeex"
+keywords:
+  - gis
+  - geospatial
+  - rust
+  - ai
+  - llm
+  - agentic
+authors:
+  - name: "The Orbeex Contributors"
+version: "0.0.0"
+date-released: "2026-10-17"

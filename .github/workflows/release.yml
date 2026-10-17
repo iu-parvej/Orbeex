@@ -1,0 +1,138 @@
+name: release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version (X.Y.Z)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  # 1) Compile the changelog and stage release notes from fragments.
+  prepare:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5 # v5.3.0
+        with:
+          python-version: "3.12"
+      - id: ver
+        name: Resolve version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Compile changelog
+        run: python scripts/changelog/orbeex.py compile --version "${{ steps.ver.outputs.version }}"
+      - name: Validate
+        run: python scripts/changelog/orbeex.py validate-all
+
+  # 2) Build signed-as-provenance artifacts across platforms.
+  build:
+    name: Build (${{ matrix.target }})
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest,  target: x86_64-unknown-linux-gnu }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc }
+          - { os: macos-latest,   target: aarch64-apple-darwin }
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      id-token: write          # required for provenance attestation
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - uses: Swatinem/rust-cache@v2 # v2.7.5
+        with:
+          key: ${{ matrix.target }}
+      - run: rustup target add ${{ matrix.target }}
+      - run: cargo build --release --workspace --target ${{ matrix.target }}
+      - name: Package artifacts
+        shell: bash
+        run: |
+          mkdir -p dist
+          # Package built binaries (adjust as apps are added under software/apps).
+          find target/${{ matrix.target }}/release -maxdepth 1 -type f \
+            \( -name '*.exe' -o -perm -u+x \) \
+            -exec cp {} dist/ \; 2>/dev/null || true
+          ls -la dist || true
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4 # v4.4.3
+        with:
+          name: build-${{ matrix.target }}
+          path: dist
+          if-no-files-found: warn
+      - name: Attest build provenance (SLSA L2)
+        uses: actions/attest-build-provenance@v2 # v2.0.1
+        with:
+          subject-path: "dist/*"
+        if: always()
+
+  # 3) Generate an SBOM for the workspace.
+  sbom:
+    name: SBOM (CycloneDX)
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - uses: anchore/sbom-action@v0 # PIN TO SHA on first run (see .github/workflows/README.md)
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: sbom.cyclonedx.json
+      - uses: actions/upload-artifact@v4 # v4.4.3
+        with:
+          name: sbom
+          path: sbom.cyclonedx.json
+
+  # 4) Publish a GitHub Release with notes + artifacts.
+  publish:
+    name: Publish GitHub Release
+    needs: [prepare, build, sbom]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - uses: actions/download-artifact@v4 # v4.1.8
+        with:
+          path: artifacts
+      - name: Collect notes
+        id: notes
+        run: |
+          f="changes/releases/${{ needs.prepare.outputs.version }}.md"
+          if [ -f "$f" ]; then
+            cp "$f" release-notes.md
+          else
+            echo "Release ${{ needs.prepare.outputs.version }}" > release-notes.md
+          fi
+      - name: Create release
+        uses: softprops/action-gh-release@v2 # v2.1.0
+        with:
+          tag_name: v${{ needs.prepare.outputs.version }}
+          name: v${{ needs.prepare.outputs.version }}
+          body_path: release-notes.md
+          draft: false
+          prerelease: ${{ contains(needs.prepare.outputs.version, '-') }}
+          files: artifacts/**/*

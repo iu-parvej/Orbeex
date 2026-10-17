@@ -1,0 +1,33 @@
+# gitleaks configuration — secret scanning for Orbeex (public repo).
+# Docs: https://github.com/gitleaks/gitleaks
+# Run:  gitleaks detect --config .gitleaks.toml --no-banner
+#
+# Uses the built-in rule set plus Orbeex allowlists so documentation
+# placeholders and examples never produce false positives.
+
+title = "Orbeex gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Orbeex-specific allowlist (docs, placeholders, examples)"
+paths = [
+  '''MASTER_BLUEPRINT\.md$''',
+  '''SECURITY\.md$''',
+  '''CONTRIBUTING\.md$''',
+  '''(^|/)brain/''',
+  '''(^|/)docs-site/''',
+  '''(^|/)licensing/''',
+  '''(^|/)changes/''',
+  '''(^|/)research/''',
+  '''(^|/)\.github/''',
+  '''(^|/)scripts/''',
+  '''(^|/)tests/''',
+  '''test_.*\.py$''',
+]
+regexes = [
+  '''(?i)(your[_-]?api[_-]?key|example|placeholder|dummy|redact|replace[_-]?me|changeme|<[^>]+>)''',
+  '''\$\{\{\s*secrets\.[A-Z_]+\s*\}\}''',
+  '''(?i)secrets?\.(GITHUB_TOKEN|GPG_KEY)''',
+]

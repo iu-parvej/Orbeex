@@ -1,0 +1,82 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Least privilege by default (OpenSSF Scorecard).
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-D warnings"
+
+jobs:
+  fmt:
+    name: rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - name: Install toolchain
+        run: rustup toolchain install --profile minimal && rustup component add rustfmt
+      - run: cargo fmt --all -- --check
+
+  clippy:
+    name: clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - uses: Swatinem/rust-cache@v2 # v2.7.5
+      - run: rustup component add clippy
+      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+  test:
+    name: test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - uses: Swatinem/rust-cache@v2 # v2.7.5
+      - run: cargo build --workspace --all-features
+      - run: cargo test --workspace --all-features
+
+  docs:
+    name: rustdoc
+    runs-on: ubuntu-latest
+    env:
+      RUSTDOCFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+      - uses: Swatinem/rust-cache@v2 # v2.7.5
+      - run: cargo doc --workspace --no-deps --all-features
+
+  changelog:
+    name: changelog & registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # v4.2.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5 # v5.3.0
+        with:
+          python-version: "3.12"
+      - name: Validate fragments & registry
+        run: python scripts/changelog/orbeex.py validate-all
+      - name: Require a change fragment for behavior changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: python scripts/changelog/require_fragment.py
+      - name: Automation tests
+        run: python -m pip install --quiet pyyaml mypy && python -m pytest scripts/changelog -q
