@@ -1,5 +1,5 @@
 # Python dependencies for scripts/ (automation + tests).
 # Runtime: none required (stdlib). The following are for tooling/tests only.
 PyYAML>=6.0      # optional: used when available for registry parsing
-pytest>=8.0      # test runner
+pytest>=9.1.1      # test runner
 mypy>=1.10       # static type checking
