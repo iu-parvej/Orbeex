@@ -1,11 +1,12 @@
-# ADR-0013 — Plain-English Writing Style for Documentation
+# ADR-0013 — Documentation Writing Style
 
 | Field | Value |
 |---|---|
-| **Status** | Accepted |
+| **Status** | **Superseded by ADR-0014** |
 | **Date** | 2026-10-17 |
 | **Deciders** | Orbeex Core Team |
 | **Related** | ADR-0004 (Mintlify docs) |
+| **Superseded by** | [ADR-0014](ADR-0014-professional-compact-writing-style.md) |
 
 ## Context
 

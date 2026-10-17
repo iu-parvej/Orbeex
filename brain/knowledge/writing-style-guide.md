@@ -1,58 +1,65 @@
 # Writing Style Guide
 
-**This applies to every human-facing document:** README files, documentation, code
-comments, error messages, release notes, and doc-comments. It does **not** change the
-precise technical wording inside code where clarity of meaning matters more than tone.
+Applies to all human-facing text: README files, documentation, release notes, comments,
+and error messages. It does not change precise wording inside code where exact meaning
+matters more than tone.
 
-> **Rule of thumb: write like you're explaining it to a smart colleague who is new to the
-> project. Clear, warm, and plain. Not stiff, not robotic.**
+## Register
 
-## The short version
+Professional and compact. Write the way a well-run software company documents its product:
+clear, factual, and dense with information. Every sentence should earn its place.
 
-1. **Use simple, everyday English.** If a simpler word works, use it.
-2. **Write in a natural, human voice.** Talk to the reader as "you." Use contractions
-   sparingly but naturally ("you'll", "it's").
-3. **Keep sentences short.** One idea per sentence. Break up long ones.
-4. **Lead with why, then how.** Tell people what a thing does and why they'd care, then the
-   details.
-5. **Avoid AI-sounding filler.** No "In today's fast-paced world", "It is important to note
-   that", "delve", "leverage", "robust", "seamless", "cutting-edge", "game-changing",
-   "unlock", "empower". Just say the thing.
-6. **No needless jargon.** If a technical term is necessary, explain it once in plain words.
-7. **Be honest about status.** Say when something is early, unfinished, or a work in
-   progress. Don't oversell.
+## Rules
 
-## What to do / what to avoid
+1. **Be concise.** State the fact and move on. Remove any word that doesn't add meaning.
+2. **Be factual.** Describe what something does. Avoid adjectives that assert quality
+   ("powerful", "robust", "seamless", "cutting-edge") unless strictly necessary.
+3. **Be neutral in tone.** No exclamation marks, no enthusiasm, no marketing language.
+   No emoji, no decorative icons in prose.
+4. **Use plain words.** Short sentences. One idea each. Prefer the common word.
+5. **Lead with the function.** Say what a feature does first; add context only if it helps.
+6. **Structured, not flowing.** Short paragraphs, tight bullet lists, tables for
+   comparisons. Scannable beats elegant.
+7. **Define terms once.** If a technical term is required, define it briefly on first use.
+8. **Be accurate about status.** State clearly whether something is stable, early, or
+   planned. Never overstate.
 
-| Avoid (AI-ish) | Use instead (human) |
+## Avoid
+
+| Avoid | Use |
 |---|---|
-| "This module facilitates the orchestration of…" | "This part decides the order of steps." |
-| "It is important to note that…" | (just say it) |
-| "Robust, seamless, enterprise-grade solution" | "Built to handle big datasets without crashing." |
-| "Leverage the power of AI" | "Use AI to…" |
-| "Utilize" | "Use" |
-| "Prior to" | "Before" |
-| "In order to" | "To" |
-| "A myriad of" | "Many" |
-| "Delve into" | "Look at" / "dig into" |
+| "It is important to note that…" | (delete) |
+| "leverage", "utilize" | "use" |
+| "robust", "seamless", "powerful" | describe the actual behavior |
+| "delve into" | "review" |
+| "a myriad of" | "many" |
+| "in order to" | "to" |
+| "prior to" | "before" |
+| "game-changing", "next-generation" | (delete) |
+| Exclamation points, emoji, icons in prose | (delete) |
 
-## Structure
+## Structure of a feature description
 
-- Start each doc with a one-line summary of what it is.
-- Use short sections with clear headings.
-- Prefer bullet lists and short tables over dense paragraphs.
-- Put the most important thing first.
-- End with what the reader should do next, if anything.
+For each feature, state in order:
 
-## Examples in this repo
+1. **What it does** — one sentence.
+2. **Why it matters** — one sentence, only if not obvious.
+3. **How to use it** — the command, or a short list of steps.
 
-- `README.md` — the model to follow: warm, plain, explains GIS without assuming the reader
-  knows it.
-- `CONTRIBUTING.md` — friendly and direct.
-- `SECURITY.md` — plain and serious without being cold.
+Example:
+
+```
+### Reproject a layer
+
+Reprojects a vector layer to a target coordinate reference system.
+
+    orbeex reproject --layer roads --crs EPSG:3857
+
+Supports any CRS in the EPSG registry.
+```
 
 ## Enforcement
 
-There is no automated linter for tone. It's a review responsibility: reviewers should ask
-"would a normal person say it this way?" and push back on stiff or filler-filled wording.
-This guide lives in `brain/` so the AI collaborator and humans both follow it.
+No automated tone check. Reviewer responsibility: if a sentence is longer than it needs to
+be, says nothing, or claims a quality it doesn't prove, it should be cut. This guide lives in
+`brain/` so both humans and the AI collaborator follow it.

@@ -60,8 +60,18 @@ See `knowledge/enterprise-readiness-audit-2026-10-17.md` §8. Highlights:
   (verified). History rewritten to a noreply identity. See `knowledge/security-guide.md`.
 - Secret prevention in place: `.gitignore`, gitleaks pre-commit, CI scan, push protection
   (to enable on GitHub). ADR-0012.
-- **Writing style:** plain English for all human docs. See
-  `knowledge/writing-style-guide.md`. ADR-0013.
+- **Writing style:** professional, compact, factual English for all human docs. See
+  `knowledge/writing-style-guide.md`. ADR-0014 (supersedes ADR-0013).
+- **Policy set:** PRIVACY.md, DATA-USAGE.md, ACCEPTABLE-USE.md, TRADEMARK.md, plus SECURITY
+  and GOVERNANCE. ADR-0015.
+
+## Data & Privacy Commitments (standing)
+
+- Local processing by default; no data leaves the machine unless AI is enabled.
+- No telemetry or usage collection in the current version.
+- Only task intent + dataset schema are sent to LLM providers by default (never raw data).
+- AI features are opt-in and can be disabled; local models supported for full isolation.
+- **Before shipping any telemetry or network feature, update `DATA-USAGE.md` first.**
 
 ## Audit (2026-10-17)
 

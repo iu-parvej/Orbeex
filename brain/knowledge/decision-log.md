@@ -41,6 +41,14 @@ Authoritative detail lives in each ADR under `../decisions/`.
 | 13 | **Plain-English writing style** | All human-facing docs in clear, warm, non-AI tone | ADR-0013 |
 | — | **Folder re-analysis** | No new structural gaps; verified no secrets/emails in tracked files | session-log Session 5 |
 
+## 2026-10-17 — Documentation Register & Policies
+
+| # | Decision/Action | Outcome | Record |
+|---|---|---|---|
+| 14 | **Professional, compact writing style** | Supersedes ADR-0013's warm tone; concise, factual, no filler/emoji | ADR-0014 |
+| 15 | **Full privacy & data policy set** | PRIVACY, DATA-USAGE, ACCEPTABLE-USE, TRADEMARK + existing SECURITY/GOVERNANCE | ADR-0015 |
+| — | **Core commitments** | Local by default; no collection; schema-not-data to LLMs; opt-in and reversible | PRIVACY.md, DATA-USAGE.md |
+
 ## How to add a decision
 
 1. Write `ADR-NNNN-<slug>.md` in `../decisions/` (use an existing ADR as the template).

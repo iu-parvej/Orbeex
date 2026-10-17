@@ -20,7 +20,9 @@ Naming: `ADR-NNNN-<slug>.md`.
 | [0010](ADR-0010-automated-changelog-traceability.md) | Automated Changelog, Traceability & Docs/Roadmap Sync | Accepted | 2026-10-17 |
 | [0011](ADR-0011-enterprise-hardening-baseline.md) | Enterprise Hardening Baseline (Repo, CI/CD, Supply Chain) | Accepted | 2026-10-17 |
 | [0012](ADR-0012-secret-prevention-public-repo.md) | Secret Prevention & Public-Repo Safety | Accepted | 2026-10-17 |
-| [0013](ADR-0013-plain-english-writing-style.md) | Plain-English Writing Style for Documentation | Accepted | 2026-10-17 |
+| [0013](ADR-0013-plain-english-writing-style.md) | Documentation Writing Style | **Superseded by 0014** | 2026-10-17 |
+| [0014](ADR-0014-professional-compact-writing-style.md) | Professional, Compact Documentation Style | Accepted | 2026-10-17 |
+| [0015](ADR-0015-privacy-data-usage-policies.md) | Enterprise Privacy & Data-Usage Policy Set | Accepted | 2026-10-17 |
 
 ## Status Legend
 

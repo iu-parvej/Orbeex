@@ -1,49 +1,62 @@
 # Orbeex
 
-**A free, open-source GIS that you can talk to.**
+An open-source, AI-native Geographic Information System, written in Rust.
 
-Orbeex is a Geographic Information System — software for working with maps and spatial
-data — built in Rust. What makes it different is that you describe what you want in plain
-language, and Orbeex works out the steps, shows you the plan, and runs it for you once you
-say yes.
+Orbeex converts natural-language instructions into explicit, reviewable geospatial
+operations, which a native engine executes. Every action is recorded, reversible, and
+auditable. Processing runs locally; data is never sent to a model provider.
 
-Every action it takes is recorded, reviewable, and reversible. You stay in control, and the
-data stays on your machine.
+## Features
 
-## Why people would use it
+**Natural-language workflow**
+Describe a task in plain language. Orbeex derives the operation sequence, presents the plan,
+and executes it after confirmation.
 
-- **You can just ask.** Instead of clicking through menus, you type what you need:
-  "find every parcel within 500 m of the river and export it as GeoJSON." Orbeex figures
-  out the workflow, shows it to you, and runs it after you confirm.
-- **Nothing happens behind your back.** Every change is logged as an *operation*. You can
-  see the full history, understand each step, and undo anything.
-- **Your data stays yours.** The heavy processing runs locally. Only the *intent* or a
-  short description of your data is ever sent to an AI model — and only if you allow it.
-- **Bring your own AI.** Use OpenAI, Claude, Gemini, DeepSeek, Qwen, or a local model with
-  your own API key. No lock-in to one provider.
-- **Built to be fast.** The engine is native Rust, so it's built for large datasets and
-  smooth maps.
+**Deterministic execution**
+Every action is an operation in an append-only graph. This provides undo, full audit
+history, and reproducible results. The AI layer never modifies data directly; it proposes
+operations that the engine validates before running.
 
-## Where to look first
+**Data sovereignty**
+Spatial processing runs on the local machine. Only the task intent, or a dataset schema, is
+sent to a language model, and only when enabled. Raw coordinates and attribute data are not
+transmitted.
 
-- **[MASTER_BLUEPRINT.md](MASTER_BLUEPRINT.md)** — the main design document. Start here.
-- [`plan/`](plan/) — the roadmap and what we're building next.
-- [`brain/`](brain/) — why we made the big decisions, and current project state.
-- [`docs/`](docs/) — architecture notes and guides.
-- [`licensing/`](licensing/) — the licenses we use and our legal policy.
+**Multi-provider AI**
+Supports OpenAI, Anthropic, Google, DeepSeek, and Qwen with user-supplied API keys, plus
+local models for offline use. No dependence on a single provider.
+
+**Native performance**
+A Rust engine with GPU-accelerated rendering. Designed for datasets in the millions of
+features. Memory-safe by construction.
+
+**Cross-platform**
+Native builds for Windows, macOS, and Linux. A WebAssembly build provides a reduced feature
+set in the browser.
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `MASTER_BLUEPRINT.md` | Primary design and engineering document |
+| `plan/` | Roadmap and execution plan |
+| `brain/` | Decisions (ADRs), project context, current state |
+| `docs/` | Architecture and guides |
+| `licensing/` | License policy and records |
+| `changes/` | Changelog fragments and releases |
+| `features/` | Feature specifications and registry |
 
 ## Status
 
-Early days. The project skeleton, the rules for contributing, and the build/CI setup are in
-place. The GIS engine itself is just starting. If you want the full picture, read the audit
-in `brain/knowledge/enterprise-readiness-audit-2026-10-17.md` and the roadmap in `plan/`.
+Foundation phase. Repository structure, contribution rules, build system, and CI are in
+place. The GIS engine is in early development. For details, see
+`brain/knowledge/enterprise-readiness-audit-2026-10-17.md` and `plan/roadmap/`.
 
-## Getting set up
+## Development
 
-You'll need Rust (the exact version is pinned in `rust-toolchain.toml`), Python 3.11 or
-newer, and Node.js 20.17 or newer.
+Requirements: Rust (version pinned in `rust-toolchain.toml`), Python 3.11+, Node.js 20.17+.
 
-Once those are installed, these commands check that everything is healthy:
+Run the full verification suite:
 
 ```bash
 cargo fmt --all -- --check
@@ -54,10 +67,20 @@ python scripts/changelog/orbeex.py validate-all
 python -m pytest scripts/changelog -q
 ```
 
-Want to help? Read [CONTRIBUTING.md](CONTRIBUTING.md). For how the automated checks work,
-see [.github/workflows/README.md](.github/workflows/README.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow.
+
+## Policies
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) — how to contribute
+- [SECURITY.md](SECURITY.md) — vulnerability reporting and secret handling
+- [PRIVACY.md](PRIVACY.md) — data handling and privacy
+- [DATA-USAGE.md](DATA-USAGE.md) — data processing and the AI data flow
+- [ACCEPTABLE-USE.md](ACCEPTABLE-USE.md) — permitted use of the software
+- [TRADEMARK.md](TRADEMARK.md) — use of the Orbeex name and logo
+- [GOVERNANCE.md](GOVERNANCE.md) — project governance
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — community standards
 
 ## License
 
-The code is under the Apache 2.0 license. The documentation is under CC-BY-4.0.
-See [LICENSE](LICENSE) and the [`licensing/`](licensing/) folder for details.
+Code is licensed under Apache-2.0. Documentation is licensed under CC-BY-4.0.
+See [LICENSE](LICENSE) and the [`licensing/`](licensing/) directory.

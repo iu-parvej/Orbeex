@@ -128,3 +128,25 @@ re-included `.env.example`.
 push protection + branch protection.
 
 ---
+
+## Session 6 — 2026-10-17 — Documentation Register & Policy Set
+
+**Outcome:** Switched documentation to a professional, compact register and added a full
+privacy and data-usage policy set.
+
+**Produced:**
+- Revised `brain/knowledge/writing-style-guide.md` to the professional-compact register.
+- ADR-0014 (supersedes ADR-0013).
+- Rewrote `README.md` (feature-oriented, scannable) and `CONTRIBUTING.md`.
+- New policies: `PRIVACY.md`, `DATA-USAGE.md`, `ACCEPTABLE-USE.md`, `TRADEMARK.md`.
+  ADR-0015.
+- README now links the full policy set.
+
+**Key commitments recorded:** local processing by default; no collection; schema-not-data to
+LLMs; opt-in and reversible AI features; local-model support for full isolation.
+
+**Verified:** pytest 15 passed; mypy clean; fmt clean; changelog OK.
+
+**Next:** same as Session 5 — GitHub remote, push protection, branch protection.
+
+---
