@@ -6,7 +6,6 @@
 | `deny.yml` | push/PR/weekly | `cargo-deny`: licenses, advisories, bans |
 | `audit.yml` | daily/on dep change | `cargo-audit` (RustSec) + `pip-audit` |
 | `unsafe-check.yml` | push/PR | fail on raw `unsafe` / missing `forbid(unsafe_code)` |
-| `docs.yml` | docs changes | `mint validate`, `broken-links`, `a11y` |
 | `codeql.yml` | push/PR/weekly | CodeQL for `actions` + `python` |
 | `release.yml` | tag `v*.*.*` | compile changelog, build artifacts, SBOM, SLSA provenance, publish |
 
@@ -27,7 +26,7 @@ Configure these as required before merge:
 - `rustfmt`, `clippy`, `test (ubuntu/windows/macos)`, `rustdoc`
 - `changelog & registry`
 - `cargo-deny`, `forbid unsafe_code`
-- `Mintlify validation`
+- `Documentation link check`
 - `CodeQL`
 
 ## Local parity

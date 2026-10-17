@@ -102,3 +102,19 @@ desktop.ini
 *.log
 tmp/
 temp/
+
+# -- Internal work product (never public; mirrored separately) --------
+/brain/
+/plan/
+/research/
+/features/
+/releases/
+/ai/
+/assets/
+# Public docs: source stays local; published via Mintlify MCP (see ADR-0016)
+/documentation/
+# Legacy docs folder retired (live content lives in the Mintlify project)
+/docs-site/
+/MASTER_BLUEPRINT.md
+/kilo.local.*
+.kilo/
