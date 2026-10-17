@@ -4,8 +4,9 @@
 |---|---|---|
 | `ci.yml` | push/PR | fmt, clippy, build+test matrix, rustdoc, changelog/registry gates |
 | `deny.yml` | push/PR/weekly | `cargo-deny`: licenses, advisories, bans |
-| `audit.yml` | daily/on dep change | `cargo-audit` (RustSec) + `pip-audit` |
+| `audit.yml` | daily/on dep change | `pip-audit` (Python automation deps) |
 | `unsafe-check.yml` | push/PR | fail on raw `unsafe` / missing `forbid(unsafe_code)` |
+| `secret-scan.yml` | push/PR/daily | gitleaks secret scanning (full history) |
 | `codeql.yml` | push/PR/weekly | CodeQL for `actions` + `python` |
 | `release.yml` | tag `v*.*.*` | compile changelog, build artifacts, SBOM, SLSA provenance, publish |
 
@@ -25,8 +26,7 @@ must be pinned on first successful run.
 Configure these as required before merge:
 - `rustfmt`, `clippy`, `test (ubuntu/windows/macos)`, `rustdoc`
 - `changelog & registry`
-- `cargo-deny`, `forbid unsafe_code`
-- `Documentation link check`
+- `cargo-deny`, `forbid unsafe_code`, `gitleaks`
 - `CodeQL`
 
 ## Local parity
