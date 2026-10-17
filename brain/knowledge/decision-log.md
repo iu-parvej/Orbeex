@@ -49,6 +49,13 @@ Authoritative detail lives in each ADR under `../decisions/`.
 | 15 | **Full privacy & data policy set** | PRIVACY, DATA-USAGE, ACCEPTABLE-USE, TRADEMARK + existing SECURITY/GOVERNANCE | ADR-0015 |
 | — | **Core commitments** | Local by default; no collection; schema-not-data to LLMs; opt-in and reversible | PRIVACY.md, DATA-USAGE.md |
 
+## 2026-10-17 — Docs Live & Mintlify-Direct Workflow
+
+| # | Decision/Action | Outcome | Record |
+|---|---|---|---|
+| 16 | **Public docs live** | https://orbeex.mintlify.app — 11 pages; rewrite: introduction/quickstart; new: how-it-works, working-with-ai, your-data-and-privacy | commit 8302c9f4 (Mintlify) |
+| 17 | **`documentation/` = docs source; publish via Mintlify MCP directly** | Broad global audience; bypasses `git push`; workflow binding for all future doc updates | ADR-0016, plan/execution/documentation-workflow.md |
+
 ## How to add a decision
 
 1. Write `ADR-NNNN-<slug>.md` in `../decisions/` (use an existing ADR as the template).

@@ -91,3 +91,4 @@ next, what's blocked. This is the fastest way for an AI to resume work.
 - Mintlify site live at https://orbeex.mintlify.app (project portfolioofparvej/orbeex).
 - New workflow: pages sourced in documentation/, pushed directly to Mintlify via MCP; broad-audience tone.
 - 11 pages live; rewrites: introduction, quickstart; new: how-it-works, working-with-ai, your-data-and-privacy.
+- **Workflow (ADR-0016, binding):** documentation/ is the docs source; publish directly to Mintlify via MCP (write_page/create_node/publish); never git push for docs. Blueprint §7.5 + plan/execution/documentation-workflow.md mirror it.

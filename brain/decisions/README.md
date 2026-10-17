@@ -23,6 +23,7 @@ Naming: `ADR-NNNN-<slug>.md`.
 | [0013](ADR-0013-plain-english-writing-style.md) | Documentation Writing Style | **Superseded by 0014** | 2026-10-17 |
 | [0014](ADR-0014-professional-compact-writing-style.md) | Professional, Compact Documentation Style | Accepted | 2026-10-17 |
 | [0015](ADR-0015-privacy-data-usage-policies.md) | Enterprise Privacy & Data-Usage Policy Set | Accepted | 2026-10-17 |
+| [0016](ADR-0016-documentation-workflow-mintlify-direct.md) | Public Docs: `documentation/` Source, Mintlify-Direct Publishing | Accepted | 2026-10-17 |
 
 ## Status Legend
 

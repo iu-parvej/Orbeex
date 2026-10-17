@@ -139,6 +139,7 @@ D:\Orbeex\
 ├── plan\                   # Roadmap & strategic execution (WHAT & WHEN)
 ├── brain\                  # Core logic, context, decisions (WHY & HOW-THINK)
 ├── licensing\              # Legal documentation & license policy (LEGAL)
+├── documentation\          # PUBLIC DOCS SOURCE — pages pushed directly to Mintlify
 ├── docs\                   # Architecture, guides, user-facing documentation
 ├── research\               # Market & technology research (EVIDENCE)
 ├── features\               # Feature specs & development tracking (WORK)
@@ -453,8 +454,13 @@ via Git PRs and the web editor, and via the **Developer API** once the free **OS
 
 **API reference from Rust:** `rustdoc` published to GitHub Pages.
 
+**Connection status (2026-10-17):** Mintlify project `portfolioofparvej/orbeex` is live at
+https://orbeex.mintlify.app (deploy branch `main`). The Mintlify MCP connection is active
+and **pinned** to this project, so MCP calls need no subdomain. Publishing uses the project's
+own Git integration — no `git push` from the local repo required for docs.
+
 **Portability fallback:** **Docusaurus** (prior ADR-0002) or **MkDocs Material** — because
-docs are plain MDX in Git, the site can be rebuilt elsewhere with no content loss.
+docs are plain MDX, the site can be rebuilt elsewhere with no content loss.
 
 **Internal knowledge base (optional):** BookStack or Wiki.js (free, self-hosted) — for
 internal, non-versioned knowledge. Public docs use Mintlify.
@@ -463,7 +469,8 @@ internal, non-versioned knowledge. Public docs use Mintlify.
 
 | Type | Location | Audience |
 |---|---|---|
-| Public user docs | `docs-site/` (Mintlify MDX + `docs.json`), authored from `docs/` | End users |
+| Public user docs — **source** | `documentation/` (MDX pages, per `documentation/README.md`) | Global, non-technical audience |
+| Public user docs — **live site** | Mintlify project `portfolioofparvej/orbeex` (https://orbeex.mintlify.app) | End users |
 | Developer guides | `docs/guides/` | Contributors |
 | Architecture docs | `docs/architecture/` | Engineers |
 | Decisions (ADR) | `brain/decisions/` | All contributors |
@@ -484,7 +491,7 @@ internal, non-versioned knowledge. Public docs use Mintlify.
 7. **No orphan docs:** every doc must be linked from an index (`README` or docs sidebar).
 8. **Broken-link check** runs in CI on every docs change.
 9. **Diagrams** are text-first (Mermaid) so they live in version control and render in
-   Docusaurus/MkDocs.
+   Mintlify.
 10. **Terminology** is governed by `docs\glossary.md` (GIS + AI + Orbeex terms).
 
 ### 7.4 Documentation as AI Context
@@ -494,6 +501,33 @@ and `ai\`. These must be:
 - concise and unambiguous (AI-optimized),
 - kept in sync with the Blueprint,
 - free of task-specific noise.
+
+### 7.5 Public Docs Publishing Workflow (Mintlify-direct) — MANDATORY
+
+> Source of truth for this workflow: `documentation\README.md` and
+> `brain\decisions\ADR-0016`. **Every AI session updating public docs must follow it.**
+
+1. **Audience first.** Public pages target a broad, global, non-technical audience: clear
+   everyday words, short sentences, no unexplained jargon, no filler, no emoji. Register per
+   `brain\knowledge\writing-style-guide.md` (professional, compact, accessible).
+2. **Derive content from `brain\` and `plan\`.** Mission, feature descriptions, privacy
+   commitments, status claims — all come from `brain\context\`, `brain\decisions\`,
+   `brain\knowledge\`, and `plan\roadmap\`. Never invent product claims.
+3. **Edit the source.** Pages live in `documentation\*.mdx`. Keep this folder in sync with
+   what is published; never edit only one side.
+4. **Push directly to Mintlify** using MCP tools on branch `main`:
+   - existing page → `write_page` (full file, with frontmatter);
+   - new page → `create_node` (data includes `content`; parent = the Documentation group;
+     set `order` to place it);
+   - structural changes → `update_node` / `move_node` / `update_config`.
+5. **Publish.** Call `publish` (deploy branch) with a conventional title, then confirm
+   with `deployment_status` until `live: true`. Report the live URL
+   (https://orbeex.mintlify.app).
+6. **Record it.** Add a changelog fragment, update `brain\state\`, and commit locally.
+   Do **not** run `git push` for documentation changes — the project's Mintlify Git
+   integration writes the repo on publish.
+7. **Safety.** Never include secrets, personal data, or real coordinates of sensitive
+   sites. Status claims must be accurate ("planned" when not shipped).
 
 ---
 

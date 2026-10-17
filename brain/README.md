@@ -46,8 +46,12 @@ If a decision changes an earlier one, mark the old ADR **Superseded** (never edi
 
 ## Standing Rules
 
-- **Writing style:** all human-facing docs use plain, warm English (see
-  `knowledge/writing-style-guide.md`, ADR-0013). No AI-sounding filler.
+- **Writing style:** all human-facing docs use professional, compact, plain English (see
+  `knowledge/writing-style-guide.md`, ADR-0014). No AI-sounding filler.
+- **Public docs workflow (mandatory):** source pages live in `documentation/`; publish
+  directly to Mintlify via MCP tools on branch `main`, verify with `deployment_status`,
+  **never `git push` for docs**. Audience: broad, global, non-technical. See ADR-0016 and
+  `plan/execution/documentation-workflow.md`.
 - **The repo is public:** never commit secrets (see `knowledge/security-guide.md`,
   ADR-0012). Install the pre-commit hook.
 - **Every decision gets recorded here** (see above).
