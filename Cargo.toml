@@ -10,8 +10,7 @@ version = "0.0.0"
 edition = "2021"
 rust-version = "1.85"
 license = "Apache-2.0"
-license-file = "LICENSE"
-repository = "https://github.com/orbeex/orbeex"
+repository = "https://github.com/iu-parvej/Orbeex"
 homepage = "https://github.com/orbeex/orbeex"
 authors = ["The Orbeex Contributors"]
 categories = ["science", "visualization", "command-line-utilities"]
@@ -29,7 +28,7 @@ thiserror = "2"
 uuid = { version = "1", features = ["v4", "serde"] }
 
 # Time
-time = { version = "0.3", features = ["serde", "formatting"] }
+time = { version = "0.3", features = ["serde", "formatting", "parsing"] }
 
 [workspace.lints.rust]
 # Memory safety: forbid unsafe unless an audited crate opts in via an ADR.

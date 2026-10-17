@@ -109,6 +109,13 @@ def test_fragment_rejects_unknown_feature(tmp_path: Path):
     assert any("not found in registry" in e for e in errors)
 
 
+def test_fragment_allows_unknown_feature_in_public_mode(tmp_path: Path):
+    """Public checkouts have no registry — feature lookups are skipped."""
+    p = _write_fragment(tmp_path, "F-0001.added.md", "x", "feature: F-0001")
+    frag = orbeex.load_fragment(p)
+    assert orbeex.validate_fragment(frag, None) == []
+
+
 def test_fragment_rejects_empty_body(tmp_path: Path):
     p = _write_fragment(tmp_path, "PR-1.added.md", "", "")
     frag = orbeex.load_fragment(p)

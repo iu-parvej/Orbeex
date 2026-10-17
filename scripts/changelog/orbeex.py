@@ -273,7 +273,8 @@ def load_fragment(path: Path) -> Fragment:
     )
 
 
-def validate_fragment(frag: Fragment, registry_ids: set[str]) -> list[str]:
+def validate_fragment(frag: Fragment, registry_ids: set[str] | None) -> list[str]:
+    """Validate a fragment. registry_ids=None skips registry lookups (public mode)."""
     errors: list[str] = []
     if frag.ctype not in VALID_TYPES:
         errors.append(f"{frag.path}: invalid type '{frag.ctype}' (allowed: {sorted(VALID_TYPES)})")
@@ -284,7 +285,7 @@ def validate_fragment(frag: Fragment, registry_ids: set[str]) -> list[str]:
     if frag.feature:
         if not FEATURE_ID_RE.match(frag.feature):
             errors.append(f"{frag.path}: feature '{frag.feature}' must match F-NNNN")
-        elif frag.feature not in registry_ids:
+        elif registry_ids is not None and frag.feature not in registry_ids:
             errors.append(f"{frag.path}: feature '{frag.feature}' not found in registry")
     if frag.breaking and frag.ctype not in ("changed", "removed", "deprecated"):
         errors.append(f"{frag.path}: breaking:true requires type changed|removed|deprecated")
@@ -439,13 +440,20 @@ def cmd_validate_fragment(args: argparse.Namespace) -> int:
 
 def cmd_validate_all(args: argparse.Namespace) -> int:
     errors: list[str] = []
-    try:
-        _, features = load_registry(REGISTRY_FILE)
-    except ValueError as exc:
-        print(f"{ANSI_RED}error:{ANSI_RESET} {exc}")
-        return 1
-    errors += validate_registry(features)
-    ids = {f.id for f in features}
+    if REGISTRY_FILE.exists():
+        try:
+            _, features = load_registry(REGISTRY_FILE)
+        except ValueError as exc:
+            print(f"{ANSI_RED}error:{ANSI_RESET} {exc}")
+            return 1
+        errors += validate_registry(features)
+        ids: set[str] | None = {f.id for f in features}
+    else:
+        # Public mode: the feature registry is private and not part of this checkout.
+        print(f"{ANSI_YELLOW}note{ANSI_RESET} feature registry not present — "
+              f"skipping registry validation")
+        features = []
+        ids = None
 
     frags = sorted(UNRELEASED_DIR.glob("*.md"))
     for p in frags:

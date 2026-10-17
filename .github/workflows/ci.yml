@@ -72,8 +72,6 @@ jobs:
           python-version: "3.12"
       - name: Validate fragments & registry
         run: python scripts/changelog/orbeex.py validate-all
-      - name: Docs/roadmap alignment
-        run: python scripts/changelog/orbeex.py sync-docs --strict
       - name: Require a change fragment for behavior changes
         if: github.event_name == 'pull_request'
         env:
