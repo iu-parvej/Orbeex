@@ -15,3 +15,9 @@ licensing/third-party/inventory.md and enforced by cargo-deny (deny.toml).
 
 The generated NOTICE for a release is produced by the release pipeline and
 includes the full attribution for all bundled dependencies.
+
+-------------------------------------------------------------------------------
+THIRD-PARTY DEPENDENCIES
+-------------------------------------------------------------------------------
+
+(none recorded yet)
