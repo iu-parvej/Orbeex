@@ -72,3 +72,30 @@ quality-gate coverage 1/7.
 first (Git init + governance, Rust workspace skeleton, baseline CI, script tests/typing).
 
 ---
+
+## Session 4 — 2026-10-17 — Enterprise Hardening (all gaps remediated)
+
+**Outcome:** Implemented every Tier 0–2 gap from the audit, in revertible git commits.
+
+**Produced (commits 672a256 … + this session):**
+- **Git**: repo initialized on `main`; baseline + 5 logical commits.
+- **Governance** (`50ef585`): LICENSE Apache-2.0, NOTICE, CONTRIBUTING, SECURITY, CoC,
+  GOVERNANCE, SUPPORT, CITATION.cff, CODEOWNERS, issue/PR templates, `.gitattributes`,
+  `.editorconfig`, expanded `.gitignore`.
+- **Rust workspace** (`0f724d6`): `Cargo.toml`, `rust-toolchain.toml`, `rustfmt.toml`,
+  `clippy.toml`, `deny.toml`; `orbeex-core` crate (Operation/OperationKind/RiskTier, typed
+  ORX errors, validated ids); `Cargo.lock`.
+- **CI/CD + security** (`f18475d`): `ci.yml`, `deny.yml`, `audit.yml`, `unsafe-check.yml`,
+  `docs.yml`, `codeql.yml`, `release.yml` (SBOM + SLSA provenance), `dependabot.yml`;
+  15 pytest tests; mypy strict clean; fixed a parser bug.
+- **Repo hygiene** (`22e87c6`): Dockerfile, devcontainer, publish-docs workflow, `.gitkeep`,
+  SPDX headers, NOTICE generator.
+
+**Verified locally:** pytest 15 passed; mypy clean; `cargo fmt --check` clean; changelog
+`validate-all` OK (6 fragments, 2 features); `sync-docs` aligned.
+**Cannot verify locally:** Rust build/test/clippy (no MSVC/GNU linker on this machine) — CI
+covers these.
+
+**Next:** Set GitHub remote + branch protection; start P0 spikes; pin Actions to SHAs.
+
+---

@@ -52,6 +52,35 @@
 
 ---
 
+## 8. Remediation Status (updated 2026-10-17)
+
+All gaps addressed in commits `50ef585`…`22e87c6` (+ follow-up ADRs). Summary:
+
+| Gap | Status | Where |
+|---|---|---|
+| G-01 Git repo | ✅ Done | `.git`, `.gitattributes`, `.editorconfig` |
+| G-02 Workspace/build | ✅ Skeleton | `Cargo.toml`, `orbeex-core` crate |
+| G-03 CI coverage | ✅ Done | `.github/workflows/ci.yml` + others |
+| G-04 Supply chain | ✅ L2 | `release.yml` (SBOM + SLSA provenance) |
+| G-05 Dep/lint config | ✅ Done | `deny.toml`, `clippy.toml`, `rustfmt.toml`, `dependabot.yml` |
+| G-06 Release/publish | ✅ Done | `release.yml`, `publish-docs.yml` |
+| G-07 Governance files | ✅ Done | LICENSE, SECURITY, CONTRIBUTING, CoC, CODEOWNERS, templates |
+| G-08 Automation quality | ✅ Done | `scripts/changelog/test_orbeex.py` (15 tests), `mypy` clean |
+| G-09 Empty-dir ambiguity | ✅ Done | `.gitkeep` markers |
+| G-10 Containerization | ✅ Done | `Dockerfile`, `.devcontainer` |
+| G-11 Observability | ⏳ Planned | Phase 1+ (no runtime yet) |
+| G-12 a11y/i18n | ◑ Partial | `mint a11y` in CI; i18n deferred |
+| G-13 Hygiene | ✅ Done | SPDX headers, NOTICE generation |
+| G-14 Legacy archive | ◑ Noted | empty; left as-is |
+
+**Remaining Tier-3 (institutional):** SOC 2 / ISO 27001 control mapping, SLSA L3 hardening,
+penetration test, performance-regression gates — deferred to Phase 6 per roadmap.
+
+**Hardening follow-up:** pin GitHub Actions to full commit SHAs (see
+`.github/workflows/README.md`).
+
+---
+
 ## 2. Detailed Gap Analysis
 
 ### G-01 — No Git Repository (BLOCKER)

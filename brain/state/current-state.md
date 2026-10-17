@@ -25,27 +25,41 @@
 
 ## Not Started
 
-- [ ] Rust workspace (`software/`) — no crates yet.
 - [ ] P0 spikes (10M-feature render, LLM tool-calling reliability, WASM feasibility).
+- [ ] Remaining Blueprint crates (engine, ai, vector, raster, crs, io, render, app, …).
 - [ ] OpenAPI spec for the Orbeex API (to feed Scalar/Mintlify later).
-- [ ] CI pipeline (fmt, clippy, test, cargo-deny, no-unsafe, docs checks).
-- [ ] Git repository initialization (if not already).
-- [ ] Mintlify account + Git sync connection; OSS Program application (later).
+- [ ] Tier 3 institutional hardening (SOC 2/ISO mapping, SLSA L3, pen test).
+- [ ] Pin GitHub Actions to full commit SHAs.
+
+## Completed — Enterprise Hardening (from audit)
+
+See `knowledge/enterprise-readiness-audit-2026-10-17.md` §8. Highlights:
+
+- [x] **Git repository** initialized (`main`), `.gitattributes`, `.editorconfig`, `.gitignore`.
+- [x] **Governance**: LICENSE (Apache-2.0), NOTICE, CONTRIBUTING, SECURITY, Code of Conduct,
+      GOVERNANCE, SUPPORT, CITATION, CODEOWNERS, issue/PR templates.
+- [x] **Rust workspace**: `Cargo.toml`, `orbeex-core` crate (Operation domain, typed errors,
+      validated ids), `rust-toolchain.toml`, `rustfmt.toml`, `clippy.toml`, `deny.toml`.
+- [x] **CI/CD**: `ci.yml` (fmt/clippy/test matrix/rustdoc/changelog), `deny.yml`, `audit.yml`,
+      `unsafe-check.yml`, `docs.yml`, `codeql.yml`, `release.yml` (SBOM + SLSA provenance),
+      `publish-docs.yml`, `dependabot.yml`.
+- [x] **Automation tests + typing**: 15 pytest tests pass; mypy strict clean; parser hardened.
+- [x] **Reproducibility**: Dockerfile, devcontainer, `.gitkeep` markers, NOTICE generation.
 
 ## Open Questions / Pending
 
-- Confirm Git hosting (GitHub org/repo) and initialize the repo.
 - Decide when to start the P0 spikes.
 - Apply to Mintlify OSS Program — timing per ADR-0005 (after established).
+- Set up GitHub remote + branch protection (required status checks per workflows README).
+- Pin GitHub Actions to commit SHAs (Tier 2/3 hardening).
 
 ## Audit (2026-10-17)
 
 Full enterprise-readiness gap analysis complete →
 `brain/knowledge/enterprise-readiness-audit-2026-10-17.md`.
-**Verdict: strong scaffold, zero product code, ~15% enterprise-ready.**
-14 gaps identified (G-01…G-14). **Blockers: no Git repo (G-01), no buildable workspace
-(G-02).** Recommended: execute **Tier 0** (Git init + governance, Rust workspace skeleton,
-baseline CI, tests/typing for scripts) before feature coding.
+**Verdict was: strong scaffold, zero product code, ~15% enterprise-ready.**
+14 gaps (G-01…G-14) identified; **all Tier 0–2 gaps remediated** (see §8 of the audit).
+`_legacy/` contains 7 empty dirs, 0 files.
 
 ## How to Update
 

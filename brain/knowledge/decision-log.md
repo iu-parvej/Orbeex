@@ -24,6 +24,14 @@ Authoritative detail lives in each ADR under `../decisions/`.
 | 10 | **Full-directory enterprise audit** | 14 gaps found (G-01…G-14); verdict: strong scaffold, no product code, ~15% ready; Gate coverage 1/7 | `enterprise-readiness-audit-2026-10-17.md` |
 | — | **Blockers** | No Git repo (G-01); no buildable workspace (G-02) | audit §4 Tier 0 |
 
+## 2026-10-17 — Enterprise Hardening Implementation
+
+| # | Decision/Action | Outcome | Record |
+|---|---|---|---|
+| 11 | **Implement all audit gaps (Tier 0–2)** | Git repo, governance, Rust workspace, full CI/CD + security workflows, tests/typing, containers | ADR-0011 |
+| — | **Verification** | pytest 15 passed; mypy clean; fmt clean; changelog OK (6 fragments, 2 features) | session-log Session 4 |
+| — | **Deferred** | Tier-3 (SOC 2/ISO, SLSA L3, pen test); pin Actions to SHAs | audit §8 |
+
 ## How to add a decision
 
 1. Write `ADR-NNNN-<slug>.md` in `../decisions/` (use an existing ADR as the template).

@@ -34,6 +34,19 @@ features:
     introduced: null
     changes: [F-0001.added]
 
+  - id: F-0002
+    name: Enterprise repository & CI foundation
+    status: in-progress
+    area: infra
+    priority: P0
+    milestone: P0
+    owner: "@orbeex-core"
+    requirements: []
+    spec: null
+    docs: [CONTRIBUTING.md, .github/workflows/README.md]
+    introduced: null
+    changes: [+git-init.internal, +governance.docs, +cicd.internal, +repo-hygiene.internal]
+
 # Example (uncomment/adapt when the first real feature exists):
 #  - id: F-0001
 #    name: Vector dataset loading (GeoPackage)

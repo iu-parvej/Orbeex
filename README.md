@@ -16,8 +16,25 @@ operations** — executed by a high-performance native engine on desktop and in 
 
 ## Status
 
-Foundation phase. See `plan/roadmap/` for the phased plan.
+Foundation phase with enterprise hardening complete. See the audit
+(`brain/knowledge/enterprise-readiness-audit-2026-10-17.md`) and `plan/roadmap/`.
+
+## Development
+
+Prerequisites: Rust (pinned via `rust-toolchain.toml`), Python 3.11+, Node.js 20.17+.
+
+```bash
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo test --workspace
+cargo deny check
+python scripts/changelog/orbeex.py validate-all
+python -m pytest scripts/changelog -q
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow and
+[.github/workflows/README.md](.github/workflows/README.md) for CI/CD.
 
 ## License
 
-Code: Apache-2.0 · Docs: CC-BY-4.0. See [`licensing/`](licensing/).
+Code: Apache-2.0 · Docs: CC-BY-4.0. See [LICENSE](LICENSE) and [`licensing/`](licensing/).
