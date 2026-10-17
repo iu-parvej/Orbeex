@@ -3,6 +3,7 @@
 # Run manually:  pre-commit run --all-files
 #
 # Mirrors the CI gates so secrets and lint errors never reach the public repo.
+# Rust hooks return with the first development milestone (see .gitignore).
 
 repos:
   # Secret scanning (most important for a public repo)
@@ -30,22 +31,6 @@ repos:
       - id: check-toml
       - id: forbid-submodules
 
-  # Rust (uses the pinned toolchain)
-  - repo: local
-    hooks:
-      - id: cargo-fmt
-        name: cargo fmt
-        entry: cargo fmt --all --
-        language: system
-        types: [rust]
-        pass_filenames: false
-      - id: cargo-clippy
-        name: cargo clippy
-        entry: cargo clippy --workspace --all-targets --all-features -- -D warnings
-        language: system
-        types: [rust]
-        pass_filenames: false
-
   # Python automation (scripts/)
   - repo: local
     hooks:
@@ -57,5 +42,10 @@ repos:
       - id: pytest-scripts
         name: pytest (scripts)
         entry: python -m pytest scripts/changelog -q
+        language: system
+        pass_filenames: false
+      - id: docs-links
+        name: documentation link check
+        entry: python scripts/docs/check_local_links.py
         language: system
         pass_filenames: false

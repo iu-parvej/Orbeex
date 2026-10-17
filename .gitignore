@@ -119,3 +119,15 @@ temp/
 /kilo.local.*
 .kilo/
 /scripts/docs/
+
+# -- Rust scaffolding (returns with the first development milestone) --
+/Cargo.toml
+/Cargo.lock
+/rust-toolchain.toml
+/rustfmt.toml
+/clippy.toml
+/deny.toml
+/Dockerfile
+/.dockerignore
+/.devcontainer/
+/software/

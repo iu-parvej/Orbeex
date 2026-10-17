@@ -1,5 +1,0 @@
-# Clippy configuration — see Cargo.toml [workspace.lints] for the enforced set.
-# This file holds lint-level overrides that are not expressible in Cargo.toml.
-
-# Keep the default threshold; document any adjustment here.
-# cognitive-complexity-threshold = 30

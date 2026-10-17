@@ -36,7 +36,7 @@ Full documentation is hosted at **[orbeex.mintlify.app](https://orbeex.mintlify.
 
 ## Status
 
-Early development. Repository structure, build system, contribution process, and CI are in place; the analysis engine is under active development.
+Planning and documentation phase. The repository carries the design documents, governance, policies, and project automation; the analysis engine arrives with the first development milestone.
 
 **Planned order of delivery:** core engine → desktop application → AI layer → web (WASM) → plugin system → enterprise hardening → 1.0 release.
 
@@ -44,28 +44,25 @@ There are no releases yet. Watch the repository for the first public build.
 
 ## Development
 
-Requirements: Rust (version pinned in `rust-toolchain.toml`), Python 3.11+, Node.js 20.17+.
-
-Verify everything locally:
+Requirements for project automation and documentation checks: Python 3.11+.
 
 ```bash
-cargo fmt --all -- --check
-cargo clippy --workspace --all-targets --all-features -- -D warnings
-cargo test --workspace
-cargo deny check
 python scripts/changelog/orbeex.py validate-all
 python -m pytest scripts/changelog -q
+python scripts/docs/check_local_links.py
 ```
+
+Rust gates (fmt, clippy, tests, cargo-deny) activate together with the first development milestone.
 
 ## Project layout
 
 | Path | Contents |
 |---|---|
-| `software/` | Rust workspace — the engine and applications |
 | `scripts/` | Project automation (changelog, checks) |
 | `tests/` | Quality strategy and test assets |
 | `docs/` | Contributor documentation |
 | `licensing/` | License policy and third-party records |
+| `policies/` | Privacy, data usage, acceptable use, trademark, governance |
 | `changes/` | Changelog fragments and release notes |
 | `.github/` | CI workflows and contribution templates |
 

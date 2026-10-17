@@ -22,19 +22,14 @@ Orbeex is an open-source GIS written in Rust. This document defines how to submi
 
 Requirements:
 
-- Rust (version pinned in `rust-toolchain.toml`)
 - Python 3.11+ (project automation)
-- Node.js 20.17+ (documentation site)
 
-Run the full verification suite before opening a pull request:
+Run the verification suite before opening a pull request:
 
 ```bash
-cargo fmt --all -- --check
-cargo clippy --all-targets --all-features -- -D warnings
-cargo test --all
-cargo deny check
 python scripts/changelog/orbeex.py validate-all
 python -m pytest scripts/changelog -q
+python scripts/docs/check_local_links.py
 ```
 
 Install the pre-commit hooks once to run these checks automatically:

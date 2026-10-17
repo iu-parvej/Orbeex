@@ -1,7 +1,8 @@
 # Orbeex Dependency License Policy
 
-Enforced by `cargo-deny` (`deny.toml`) in CI. A failing `cargo deny check` is a **blocking**
-build failure. This file is the binding policy.
+Enforced by `cargo-deny` in CI. A failing `cargo deny check` is a **blocking**
+build failure. This file is the binding policy — it applies from the first
+development milestone, when the Rust workspace lands.
 
 ## Allowed (permissive)
 

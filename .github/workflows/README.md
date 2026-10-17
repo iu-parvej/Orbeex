@@ -1,35 +1,39 @@
 # CI/CD Workflows
 
+The repository is in its **planning-and-documentation phase**: Rust gates activate with the
+first development milestone (see `.gitignore` — the scaffolding returns with `software/`).
+
 | Workflow | Trigger | Purpose |
 |---|---|---|
-| `ci.yml` | push/PR | fmt, clippy, build+test matrix, rustdoc, changelog/registry gates |
-| `deny.yml` | push/PR/weekly | `cargo-deny`: licenses, advisories, bans |
-| `audit.yml` | daily/on dep change | `pip-audit` (Python automation deps) |
-| `unsafe-check.yml` | push/PR | fail on raw `unsafe` / missing `forbid(unsafe_code)` |
+| `ci.yml` | push/PR | changelog fragment validation + documentation link check |
 | `secret-scan.yml` | push/PR/daily | gitleaks secret scanning (full history) |
 | `codeql.yml` | push/PR/weekly | CodeQL for `actions` + `python` |
-| `release.yml` | tag `v*.*.*` | compile changelog, build artifacts, SBOM, SLSA provenance, publish |
+| `audit.yml` | daily/on dep change | `pip-audit` (Python automation deps) |
+
+## Rust gates (activate together with `software/`)
+
+`fmt`, `clippy`, `build/test matrix` (3 OS), `rustdoc`, `cargo-deny`
+(licenses/advisories/bans), `unsafe-check`, `release.yml` (signed artifacts + SBOM +
+SLSA provenance), `publish-docs.yml` (rustdoc). Scaffolding is preserved in local git
+history (tag `private-history-2026-10-17`).
 
 ## Actions pinning policy (IMPORTANT)
 
 Actions currently reference **major-version tags** (e.g. `actions/checkout@v4`) for
-maintainability. **Hardening step (Tier 2): pin every action to a full commit SHA** for
-supply-chain safety (OpenSSF Scorecard "Pinned-Dependencies"), ideally automated with
-[`pinact`](https://github.com/suzuki-shunsuke/pinact) or Renovate's
-`helpers:pinGitHubActionDigests`.
-
-Until pinned, treat workflow changes with extra review. The `anchore/sbom-action@v0` entry
-must be pinned on first successful run.
+maintainability. **Hardening step: pin every action to a full commit SHA** for supply-chain
+safety (OpenSSF Scorecard "Pinned-Dependencies"), ideally automated with
+[`pinact`](https://github.com/suzuki-shunsuke/pinact) or Renovate.
 
 ## Required status checks (branch protection on `main`)
 
-Configure these as required before merge:
-- `rustfmt`, `clippy`, `test (ubuntu/windows/macos)`, `rustdoc`
 - `changelog & registry`
-- `cargo-deny`, `forbid unsafe_code`, `gitleaks`
-- `CodeQL`
+- `documentation link check`
+- `gitleaks`, `CodeQL`
 
 ## Local parity
 
-Run the same gates locally (see `CONTRIBUTING.md`). Rust build/test requires a platform C
-linker (MSVC on Windows, gcc/clang on Unix). `rustfmt` and the Python gates need no linker.
+```bash
+python scripts/changelog/orbeex.py validate-all
+python -m pytest scripts/changelog -q
+python scripts/docs/check_local_links.py
+```
