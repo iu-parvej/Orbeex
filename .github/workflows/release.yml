@@ -74,7 +74,7 @@ jobs:
             -exec cp {} dist/ \; 2>/dev/null || true
           ls -la dist || true
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4 # v4.4.3
+        uses: actions/upload-artifact@v7 # v4.4.3
         with:
           name: build-${{ matrix.target }}
           path: dist
@@ -99,7 +99,7 @@ jobs:
           path: .
           format: cyclonedx-json
           output-file: sbom.cyclonedx.json
-      - uses: actions/upload-artifact@v4 # v4.4.3
+      - uses: actions/upload-artifact@v7 # v4.4.3
         with:
           name: sbom
           path: sbom.cyclonedx.json
