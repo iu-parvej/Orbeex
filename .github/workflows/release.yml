@@ -22,7 +22,7 @@ jobs:
     outputs:
       version: ${{ steps.ver.outputs.version }}
     steps:
-      - uses: actions/checkout@v4 # v4.2.2
+      - uses: actions/checkout@v7 # v4.2.2
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v5 # v5.3.0
@@ -58,7 +58,7 @@ jobs:
       id-token: write          # required for provenance attestation
       attestations: write
     steps:
-      - uses: actions/checkout@v4 # v4.2.2
+      - uses: actions/checkout@v7 # v4.2.2
       - uses: Swatinem/rust-cache@v2 # v2.7.5
         with:
           key: ${{ matrix.target }}
@@ -93,7 +93,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4 # v4.2.2
+      - uses: actions/checkout@v7 # v4.2.2
       - uses: anchore/sbom-action@v0 # PIN TO SHA on first run (see .github/workflows/README.md)
         with:
           path: .
@@ -114,7 +114,7 @@ jobs:
       id-token: write
       attestations: write
     steps:
-      - uses: actions/checkout@v4 # v4.2.2
+      - uses: actions/checkout@v7 # v4.2.2
       - uses: actions/download-artifact@v4 # v4.1.8
         with:
           path: artifacts

@@ -23,7 +23,7 @@ jobs:
       matrix:
         language: [actions, python] # add 'javascript-typescript' when docs-site JS is added
     steps:
-      - uses: actions/checkout@v4 # v4.2.2
+      - uses: actions/checkout@v7 # v4.2.2
       - uses: github/codeql-action/init@v3 # v3.27.5
         with:
           language: ${{ matrix.language }}
