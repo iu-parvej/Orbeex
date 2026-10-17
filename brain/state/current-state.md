@@ -48,10 +48,20 @@ See `knowledge/enterprise-readiness-audit-2026-10-17.md` §8. Highlights:
 
 ## Open Questions / Pending
 
+- Set the real GitHub username for the noreply commit email before pushing.
 - Decide when to start the P0 spikes.
 - Apply to Mintlify OSS Program — timing per ADR-0005 (after established).
-- Set up GitHub remote + branch protection (required status checks per workflows README).
+- Set up GitHub remote + branch protection + secret scanning/push protection on GitHub.
 - Pin GitHub Actions to commit SHAs (Tier 2/3 hardening).
+
+## Security & Style (2026-10-17)
+
+- **Repo is public-safe.** No secrets or personal email in tracked files or git history
+  (verified). History rewritten to a noreply identity. See `knowledge/security-guide.md`.
+- Secret prevention in place: `.gitignore`, gitleaks pre-commit, CI scan, push protection
+  (to enable on GitHub). ADR-0012.
+- **Writing style:** plain English for all human docs. See
+  `knowledge/writing-style-guide.md`. ADR-0013.
 
 ## Audit (2026-10-17)
 

@@ -1,27 +1,49 @@
 # Orbeex
 
-> Open-source, AI-native GIS workstation built in Rust.
+**A free, open-source GIS that you can talk to.**
 
-Orbeex turns natural language into **reviewable, reversible, auditable geospatial
-operations** — executed by a high-performance native engine on desktop and in the browser
-(WASM), with zero vendor lock-in on the LLM tier.
+Orbeex is a Geographic Information System — software for working with maps and spatial
+data — built in Rust. What makes it different is that you describe what you want in plain
+language, and Orbeex works out the steps, shows you the plan, and runs it for you once you
+say yes.
 
-## Start Here
+Every action it takes is recorded, reviewable, and reversible. You stay in control, and the
+data stays on your machine.
 
-- **[MASTER_BLUEPRINT.md](MASTER_BLUEPRINT.md)** — the primary instruction set. **Read this first.**
-- [`plan/`](plan/) — roadmap & strategic execution.
-- [`brain/`](brain/) — core logic, context, decisions.
-- [`licensing/`](licensing/) — legal documentation & policy.
-- [`docs/`](docs/) — architecture, guides, user documentation.
+## Why people would use it
+
+- **You can just ask.** Instead of clicking through menus, you type what you need:
+  "find every parcel within 500 m of the river and export it as GeoJSON." Orbeex figures
+  out the workflow, shows it to you, and runs it after you confirm.
+- **Nothing happens behind your back.** Every change is logged as an *operation*. You can
+  see the full history, understand each step, and undo anything.
+- **Your data stays yours.** The heavy processing runs locally. Only the *intent* or a
+  short description of your data is ever sent to an AI model — and only if you allow it.
+- **Bring your own AI.** Use OpenAI, Claude, Gemini, DeepSeek, Qwen, or a local model with
+  your own API key. No lock-in to one provider.
+- **Built to be fast.** The engine is native Rust, so it's built for large datasets and
+  smooth maps.
+
+## Where to look first
+
+- **[MASTER_BLUEPRINT.md](MASTER_BLUEPRINT.md)** — the main design document. Start here.
+- [`plan/`](plan/) — the roadmap and what we're building next.
+- [`brain/`](brain/) — why we made the big decisions, and current project state.
+- [`docs/`](docs/) — architecture notes and guides.
+- [`licensing/`](licensing/) — the licenses we use and our legal policy.
 
 ## Status
 
-Foundation phase with enterprise hardening complete. See the audit
-(`brain/knowledge/enterprise-readiness-audit-2026-10-17.md`) and `plan/roadmap/`.
+Early days. The project skeleton, the rules for contributing, and the build/CI setup are in
+place. The GIS engine itself is just starting. If you want the full picture, read the audit
+in `brain/knowledge/enterprise-readiness-audit-2026-10-17.md` and the roadmap in `plan/`.
 
-## Development
+## Getting set up
 
-Prerequisites: Rust (pinned via `rust-toolchain.toml`), Python 3.11+, Node.js 20.17+.
+You'll need Rust (the exact version is pinned in `rust-toolchain.toml`), Python 3.11 or
+newer, and Node.js 20.17 or newer.
+
+Once those are installed, these commands check that everything is healthy:
 
 ```bash
 cargo fmt --all -- --check
@@ -32,9 +54,10 @@ python scripts/changelog/orbeex.py validate-all
 python -m pytest scripts/changelog -q
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow and
-[.github/workflows/README.md](.github/workflows/README.md) for CI/CD.
+Want to help? Read [CONTRIBUTING.md](CONTRIBUTING.md). For how the automated checks work,
+see [.github/workflows/README.md](.github/workflows/README.md).
 
 ## License
 
-Code: Apache-2.0 · Docs: CC-BY-4.0. See [LICENSE](LICENSE) and [`licensing/`](licensing/).
+The code is under the Apache 2.0 license. The documentation is under CC-BY-4.0.
+See [LICENSE](LICENSE) and the [`licensing/`](licensing/) folder for details.

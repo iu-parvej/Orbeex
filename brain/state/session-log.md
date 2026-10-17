@@ -99,3 +99,32 @@ covers these.
 **Next:** Set GitHub remote + branch protection; start P0 spikes; pin Actions to SHAs.
 
 ---
+
+## Session 5 — 2026-10-17 — Public-Repo Safety & Writing Style
+
+**Outcome:** Made the repo safe to publish publicly, and set a plain-English writing rule.
+
+**Re-analysis:** Full folder scan found no new structural gaps. Verified **no secrets,
+tokens, keys, or personal emails** in tracked files. Found and fixed: a stray
+`build/.gitkeep` (build/ is ignored), and an over-broad `.gitignore` rule that would have
+re-included `.env.example`.
+
+**Produced:**
+- `.gitleaks.toml`, `.pre-commit-config.yaml`, `.github/workflows/secret-scan.yml`,
+  `.env.example`.
+- Hardened `.gitignore` (env/keys/credentials/cloud config); verified ignore behavior.
+- `SECURITY.md`: added a "keeping secrets out of the public repo" section.
+- Rewrote `README.md` and warmed `CONTRIBUTING.md` in plain, human English.
+- `brain/knowledge/writing-style-guide.md`, `brain/knowledge/security-guide.md`.
+- ADR-0012 (secret prevention), ADR-0013 (writing style).
+
+**History rewritten:** personal email removed from all 6 commits; now
+`Orbeex Contributors <orbeex@users.noreply.github.com>`. Dropped stash, deleted
+`refs/original/*`, expired reflogs, gc'd — verified zero gmail references remain.
+
+**Verified locally:** pytest 15 passed; mypy clean; fmt clean; changelog OK.
+
+**Next:** set real GitHub username for noreply email; push; enable GitHub secret scanning +
+push protection + branch protection.
+
+---

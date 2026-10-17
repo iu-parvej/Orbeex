@@ -43,3 +43,11 @@ If a decision changes an earlier one, mark the old ADR **Superseded** (never edi
 3. Read `decisions/README.md` and `knowledge/decision-log.md`.
 4. Read `state/current-state.md`.
 5. Continue from "Not Started" / "Open Questions".
+
+## Standing Rules
+
+- **Writing style:** all human-facing docs use plain, warm English (see
+  `knowledge/writing-style-guide.md`, ADR-0013). No AI-sounding filler.
+- **The repo is public:** never commit secrets (see `knowledge/security-guide.md`,
+  ADR-0012). Install the pre-commit hook.
+- **Every decision gets recorded here** (see above).

@@ -32,6 +32,15 @@ Authoritative detail lives in each ADR under `../decisions/`.
 | — | **Verification** | pytest 15 passed; mypy clean; fmt clean; changelog OK (6 fragments, 2 features) | session-log Session 4 |
 | — | **Deferred** | Tier-3 (SOC 2/ISO, SLSA L3, pen test); pin Actions to SHAs | audit §8 |
 
+## 2026-10-17 — Security & Writing Style
+
+| # | Decision/Action | Outcome | Record |
+|---|---|---|---|
+| 12 | **Secret prevention for the public repo** | 5 layers: gitignore, gitleaks pre-commit, CI scan, push protection, keychain-only keys | ADR-0012 |
+| — | **History rewritten** | Personal email removed from all commits; now `Orbeex Contributors <orbeex@users.noreply.github.com>`; refs/stash/reflog purged | security-guide.md |
+| 13 | **Plain-English writing style** | All human-facing docs in clear, warm, non-AI tone | ADR-0013 |
+| — | **Folder re-analysis** | No new structural gaps; verified no secrets/emails in tracked files | session-log Session 5 |
+
 ## How to add a decision
 
 1. Write `ADR-NNNN-<slug>.md` in `../decisions/` (use an existing ADR as the template).

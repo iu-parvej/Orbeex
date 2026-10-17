@@ -19,6 +19,8 @@ Naming: `ADR-NNNN-<slug>.md`.
 | [0009](ADR-0009-docs-in-main-repo.md) | Documentation Lives in the Main Orbeex Repository | Accepted | 2026-10-17 |
 | [0010](ADR-0010-automated-changelog-traceability.md) | Automated Changelog, Traceability & Docs/Roadmap Sync | Accepted | 2026-10-17 |
 | [0011](ADR-0011-enterprise-hardening-baseline.md) | Enterprise Hardening Baseline (Repo, CI/CD, Supply Chain) | Accepted | 2026-10-17 |
+| [0012](ADR-0012-secret-prevention-public-repo.md) | Secret Prevention & Public-Repo Safety | Accepted | 2026-10-17 |
+| [0013](ADR-0013-plain-english-writing-style.md) | Plain-English Writing Style for Documentation | Accepted | 2026-10-17 |
 
 ## Status Legend
 

@@ -40,14 +40,47 @@ venv/
 .pytest_cache/
 
 # ── Secrets (NEVER commit) ───────────────────────────────────────────
+# Environment files (negation must stay LAST in this block)
 .env
 .env.*
+.envrc
+*.env
+# Exception: the template is safe to commit.
+!.env.example
+
+# Keys and certificates
 *.key
 *.pem
 *.p12
 *.pfx
+*.jks
+*.keystore
+*.der
+id_rsa
+id_ed25519
+*_rsa
+*_ed25519
+
+# Credential files
 secrets/
-!.env.example
+credentials/
+.credentials
+*.secret
+*.secrets
+*.token
+*.creds
+auth.json
+service-account*.json
+
+# Cloud / tool auth
+.aws/
+.azure/
+.gcloud/
+.netrc
+.docker/config.json
+.npmrc
+.pypirc
+.cargo/credentials.toml
 
 # ── OS / editor ──────────────────────────────────────────────────────
 .DS_Store

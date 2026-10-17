@@ -55,3 +55,30 @@ attestations before use.
 In scope: the Orbeex codebase and official build/publish pipeline. Out of scope:
 third-party LLM providers, user-supplied API keys, and user data. Never commit secrets —
 `.env`, keys, and tokens are git-ignored by policy.
+
+## Keeping secrets out of the public repo
+
+This repository is **public**. Committing a secret would expose it to everyone, and it
+stays in git history even after deletion. We defend in several layers:
+
+1. **`.gitignore`** blocks `.env` files, keys, tokens, certificates, and cloud credential
+   files. Only the safe `.env.example` template is tracked.
+2. **Pre-commit hook (gitleaks)** scans staged changes locally. Install it once:
+   ```bash
+   pip install pre-commit
+   pre-commit install
+   ```
+3. **CI secret scanning** (`.github/workflows/secret-scan.yml`) runs gitleaks over the full
+   history on every push, PR, and daily.
+4. **GitHub push protection** (enable in repo settings → Code security) blocks pushes that
+   contain detected secrets.
+5. **Runtime keys are never written to the repo.** Orbeex stores LLM API keys in the OS
+   keychain, not in project files.
+
+### If a secret is ever committed
+
+1. **Rotate/revoke it immediately** — assume it is compromised the moment it is pushed.
+2. Remove it from history with `git filter-repo` (see GitHub's guide), then force-push.
+3. Tell collaborators to re-clone or clean their clones.
+
+Never rely on deletion alone; rotation is the real fix.
