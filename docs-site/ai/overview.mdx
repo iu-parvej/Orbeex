@@ -1,0 +1,18 @@
+---
+title: "AI-Native GIS"
+description: "Agentic GIS: natural language to executed spatial analysis."
+---
+
+# AI-Native GIS
+
+Orbeex treats AI as an **agent**, not a chatbot. The agent plans workflows, proposes
+options, seeks confirmation, and executes tasks — within strict safety bounds.
+
+## The loop
+
+1. **Intent** — parse natural language into a structured goal.
+2. **Plan** — produce a draft Operation Graph via LLM tool-calling.
+3. **Validate** — type-check, policy-check, and cost-estimate the plan.
+4. **Confirm** — risk-tiered human review (safe = auto; destructive = mandatory).
+5. **Execute** — deterministic, journaled execution.
+6. **Observe** — summarize the result; continue or stop.

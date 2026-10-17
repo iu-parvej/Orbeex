@@ -1,0 +1,30 @@
+---
+title: "LLM Providers"
+description: "Multi-LLM orchestration and bring-your-own-key model."
+---
+
+# LLM Providers
+
+Orbeex is **provider-agnostic**. Bring your own API key — or run a local model — and a
+**Model Router** selects the best provider per task.
+
+## Supported providers
+
+| Provider | Models |
+|---|---|
+| OpenAI | GPT family |
+| Anthropic | Claude family |
+| Google | Gemini family |
+| DeepSeek | DeepSeek family |
+| Qwen | Qwen family |
+| Local | Ollama-compatible (sovereign / air-gapped) |
+
+## Routing
+
+The router chooses a provider by **task complexity, cost budget, capability (vision,
+long context, tool-use), latency target, and organizational policy**.
+
+## Sovereignty
+
+By default, **only the dataset schema and intent** are sent to an LLM — never raw
+coordinates — unless the user explicitly opts in. A redaction middleware enforces this.

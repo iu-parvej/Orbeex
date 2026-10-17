@@ -1,0 +1,42 @@
+---
+title: "Glossary"
+description: "GIS + AI + Orbeex terminology."
+---
+
+# Glossary
+
+Source of truth: [`docs/glossary.md`](https://github.com/orbeex).
+
+## Orbeex Core
+
+| Term | Definition |
+|---|---|
+| **Operation** | Atomic, serializable unit of work in the operation graph. |
+| **Operation Graph** | Append-only DAG of Operations; source of undo, audit, reproducibility. |
+| **Core Brain** | The GIS execution engine + AI orchestration layer combined. |
+| **Tool** | A typed, schema-described engine capability exposed to the LLM. |
+| **Safety Gate** | Validation layer between an AI proposal and execution. |
+| **Model Router** | Component selecting an LLM provider per task. |
+| **Risk Tier** | Classification of an Operation: safe / additive / destructive. |
+| **Dry-run** | Simulated execution with no data mutation. |
+
+## GIS
+
+| Term | Definition |
+|---|---|
+| **GIS** | Geographic Information System. |
+| **CRS** | Coordinate Reference System. |
+| **Vector** | Geometry-based spatial data (points, lines, polygons). |
+| **Raster** | Grid/cell-based spatial data. |
+| **COG** | Cloud-Optimized GeoTIFF. |
+| **Spatial Join** | Joining attributes by spatial relationship. |
+| **Buffer** | Geometry within a distance of an input. |
+
+## AI
+
+| Term | Definition |
+|---|---|
+| **LLM** | Large Language Model. |
+| **Agentic** | An AI that plans, decides, and executes multi-step tasks. |
+| **Planning** | Converting intent into a draft Operation Graph. |
+| **Sovereignty** | Keeping data local; sending only intent/schema to LLMs. |

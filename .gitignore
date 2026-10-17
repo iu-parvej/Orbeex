@@ -1,0 +1,66 @@
+# ── Rust ─────────────────────────────────────────────────────────────
+target/
+**/*.rs.bk
+*.pdb
+# Keep Cargo.lock committed for applications (reproducible builds)
+# Cargo.lock
+
+# ── Build outputs / artifacts ────────────────────────────────────────
+/build/
+/dist/
+/out/
+*.app
+
+# ── Node (docs-site) ─────────────────────────────────────────────────
+node_modules/
+.Docusaurus/
+.next/
+.cache/
+.npm/
+*.tsbuildinfo
+
+# ── Mintlify CLI artifacts (see docs-site/MINTLIFY-GUIDE.md) ─────────
+.mintlify/
+tests/mint-test/
+
+# ── Test / coverage ──────────────────────────────────────────────────
+coverage/
+*.lcov
+*.profraw
+*.profdata
+benchmark-results/
+
+# ── Python ───────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# ── Secrets (NEVER commit) ───────────────────────────────────────────
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+!.env.example
+
+# ── OS / editor ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# ── Logs / temp ──────────────────────────────────────────────────────
+*.log
+tmp/
+temp/

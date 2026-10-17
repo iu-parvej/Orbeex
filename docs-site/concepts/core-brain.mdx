@@ -1,0 +1,26 @@
+---
+title: "The Core Brain"
+description: "How Orbeex's GIS engine and AI orchestration fit together."
+---
+
+# The Core Brain
+
+The **Core Brain** is the combination of:
+
+1. **The GIS execution engine** — deterministic, memory-safe, high-performance.
+2. **The AI orchestration layer** — probabilistic planning, isolated from execution.
+
+They are separated by a typed, serializable contract: the **Operation Graph**.
+
+## Layers
+
+| Layer | Responsibility |
+|---|---|
+| Presentation | Desktop (native) and Web (WASM) shells |
+| Orchestration | Command bus, session state, undo graph, plugin host |
+| AI Orchestration | Intent, planner, multi-LLM router, safety gate |
+| GIS Engine | Vector, raster, CRS, spatial index, I/O, scheduler |
+| Persistence | GeoPackage/SQLite, FlatGeobuf, COG, Arrow |
+
+The engine **never** requires network. LLM calls are the only network dependency and are
+user-configured.

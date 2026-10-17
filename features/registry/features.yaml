@@ -1,0 +1,49 @@
+# Orbeex Feature Registry
+#
+# Machine-readable source of truth for feature state, for automation and traceability.
+# Validated by scripts/changelog/validate.py and reconciled in CI.
+#
+# Schema (per entry):
+#   id:          F-NNNN (unique, stable)
+#   name:        short human title
+#   status:      proposed | in-progress | shipped | deprecated | removed
+#   area:        engine | ai | platform | plugin | docs | infra
+#   priority:    P0 | P1 | P2 | P3
+#   milestone:   phase id (P0..P7)
+#   owner:       GitHub handle or team
+#   requirements:[FR-XX-NN, ...]  (traceability to Master Blueprint requirements)
+#   spec:        path to feature spec (features/<state>/<id>-<slug>/)
+#   docs:        [paths to docs to update]
+#   introduced:  semver when shipped (null until shipped)
+#   changes:     [changelog refs, e.g. F-0000.added]
+#
+# NOTE: Keep this file valid YAML. Example entries below are templates.
+
+version: 1
+features:
+  - id: F-0001
+    name: Vector dataset loading (GeoPackage)
+    status: in-progress
+    area: engine
+    priority: P0
+    milestone: P1
+    owner: "@orbeex-core"
+    requirements: [FR-E01]
+    spec: features/in-progress/F-0001-vector-load/
+    docs: [docs-site/reference/glossary.mdx]
+    introduced: null
+    changes: [F-0001.added]
+
+# Example (uncomment/adapt when the first real feature exists):
+#  - id: F-0001
+#    name: Vector dataset loading (GeoPackage)
+#    status: proposed
+#    area: engine
+#    priority: P0
+#    milestone: P1
+#    owner: "@orbeex-core"
+#    requirements: [FR-E01]
+#    spec: features/backlog/F-0001-vector-load/
+#    docs: [docs-site/reference/glossary.mdx]
+#    introduced: null
+#    changes: []

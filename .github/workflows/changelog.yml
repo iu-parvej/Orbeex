@@ -1,0 +1,43 @@
+name: changelog
+
+on:
+  pull_request:
+    paths:
+      - "changes/**"
+      - "features/**"
+      - "CHANGELOG.md"
+      - "docs-site/**"
+      - "docs/**"
+      - "scripts/changelog/**"
+      - ".github/workflows/changelog.yml"
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate changelog & feature registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate fragments and registry
+        run: python scripts/changelog/orbeex.py validate-all
+
+      - name: Check docs/roadmap alignment
+        run: python scripts/changelog/orbeex.py sync-docs --strict
+
+      - name: Require a change fragment for behavior changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: python scripts/changelog/require_fragment.py
