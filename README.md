@@ -1,62 +1,52 @@
 # Orbeex
 
-An open-source, AI-native Geographic Information System, written in Rust.
+**A free, open-source tool for working with maps and location data — controlled through plain language.**
 
-Orbeex converts natural-language instructions into explicit, reviewable geospatial
-operations, which a native engine executes. Every action is recorded, reversible, and
-auditable. Processing runs locally; data is never sent to a model provider.
+Orbeex is a Geographic Information System written in Rust. Describe what you need in everyday language ("show every school within one kilometer of the river") and Orbeex builds the steps, shows you the plan, and runs it once you approve it. Every action is recorded and reversible. Your data never leaves your computer.
+
+**Live documentation: [orbeex.mintlify.app](https://orbeex.mintlify.app)**
+
+## How it works
+
+1. **You ask** — in plain language, or with regular tools and menus.
+2. **Orbeex plans** — complex tasks are broken into clear steps, shown before anything runs.
+3. **You approve** — risky operations always require explicit confirmation, with a preview.
+4. **Orbeex executes** — locally, with every step recorded so you can review, undo, and repeat.
 
 ## Features
 
-**Natural-language workflow**
-Describe a task in plain language. Orbeex derives the operation sequence, presents the plan,
-and executes it after confirmation.
-
-**Deterministic execution**
-Every action is an operation in an append-only graph. This provides undo, full audit
-history, and reproducible results. The AI layer never modifies data directly; it proposes
-operations that the engine validates before running.
-
-**Data sovereignty**
-Spatial processing runs on the local machine. Only the task intent, or a dataset schema, is
-sent to a language model, and only when enabled. Raw coordinates and attribute data are not
-transmitted.
-
-**Multi-provider AI**
-Supports OpenAI, Anthropic, Google, DeepSeek, and Qwen with user-supplied API keys, plus
-local models for offline use. No dependence on a single provider.
-
-**Native performance**
-A Rust engine with GPU-accelerated rendering. Designed for datasets in the millions of
-features. Memory-safe by construction.
-
-**Cross-platform**
-Native builds for Windows, macOS, and Linux. A WebAssembly build provides a reduced feature
-set in the browser.
-
-## Repository layout
-
-| Path | Contents |
+| | |
 |---|---|
-| `MASTER_BLUEPRINT.md` | Primary design and engineering document |
-| `plan/` | Roadmap and execution plan |
-| `brain/` | Decisions (ADRs), project context, current state |
-| `docs/` | Architecture and guides |
-| `licensing/` | License policy and records |
-| `changes/` | Changelog fragments and releases |
-| `features/` | Feature specifications and registry |
+| **Plain-language workflows** | Describe analysis tasks; Orbeex proposes the steps and executes them after confirmation. |
+| **Deterministic execution** | Every action is an operation in an append-only history. Review, undo, and reproduce any result. |
+| **Local-first processing** | Full map analysis runs on your machine. Nothing is uploaded. |
+| **Bring your own AI** | OpenAI, Anthropic, Google, DeepSeek, Qwen, or local models. Your keys, your control. |
+| **Native performance** | A memory-safe Rust engine with GPU rendering, built for large datasets. |
+| **Cross-platform** | Windows, macOS, and Linux. A WebAssembly build covers browser use. |
+
+## Documentation
+
+Full documentation is hosted at **[orbeex.mintlify.app](https://orbeex.mintlify.app)**:
+
+- [What is Orbeex?](https://orbeex.mintlify.app/introduction) — purpose and audience, for anyone
+- [How Orbeex works](https://orbeex.mintlify.app/how-it-works) — the ask, plan, approve, execute cycle
+- [Getting started](https://orbeex.mintlify.app/quickstart) — requirements and first session
+- [Using AI with Orbeex](https://orbeex.mintlify.app/working-with-ai) — providers, keys, and data boundaries
+- [Your data and privacy](https://orbeex.mintlify.app/your-data-and-privacy) — what is collected (nothing) and what is sent (almost nothing)
 
 ## Status
 
-Foundation phase. Repository structure, contribution rules, build system, and CI are in
-place. The GIS engine is in early development. For details, see
-`brain/knowledge/enterprise-readiness-audit-2026-10-17.md` and `plan/roadmap/`.
+Early development. Repository structure, build system, contribution process, and CI are in place; the analysis engine is under active development.
+
+**Planned order of delivery:** core engine → desktop application → AI layer → web (WASM) → plugin system → enterprise hardening → 1.0 release.
+
+There are no releases yet. Watch the repository for the first public build.
 
 ## Development
 
 Requirements: Rust (version pinned in `rust-toolchain.toml`), Python 3.11+, Node.js 20.17+.
 
-Run the full verification suite:
+Verify everything locally:
 
 ```bash
 cargo fmt --all -- --check
@@ -67,20 +57,30 @@ python scripts/changelog/orbeex.py validate-all
 python -m pytest scripts/changelog -q
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow.
+## Project layout
+
+| Path | Contents |
+|---|---|
+| `software/` | Rust workspace — the engine and applications |
+| `scripts/` | Project automation (changelog, checks) |
+| `tests/` | Quality strategy and test assets |
+| `docs/` | Contributor documentation |
+| `licensing/` | License policy and third-party records |
+| `changes/` | Changelog fragments and release notes |
+| `.github/` | CI workflows and contribution templates |
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md). Commits are signed off under the Developer Certificate of Origin and follow [Conventional Commits](https://www.conventionalcommits.org/). Changes to product behavior must include a changelog fragment and updated documentation.
+
+## Security
+
+Report vulnerabilities privately — see [SECURITY.md](SECURITY.md). Please do not open public issues for security problems. This repository is public: never commit secrets, keys, or tokens.
 
 ## Policies
 
-- [CONTRIBUTING.md](CONTRIBUTING.md) — how to contribute
-- [SECURITY.md](SECURITY.md) — vulnerability reporting and secret handling
-- [PRIVACY.md](PRIVACY.md) — data handling and privacy
-- [DATA-USAGE.md](DATA-USAGE.md) — data processing and the AI data flow
-- [ACCEPTABLE-USE.md](ACCEPTABLE-USE.md) — permitted use of the software
-- [TRADEMARK.md](TRADEMARK.md) — use of the Orbeex name and logo
-- [GOVERNANCE.md](GOVERNANCE.md) — project governance
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — community standards
+[Privacy](PRIVACY.md) · [Data usage](DATA-USAGE.md) · [Acceptable use](ACCEPTABLE-USE.md) · [Trademark](TRADEMARK.md) · [Governance](GOVERNANCE.md)
 
 ## License
 
-Code is licensed under Apache-2.0. Documentation is licensed under CC-BY-4.0.
-See [LICENSE](LICENSE) and the [`licensing/`](licensing/) directory.
+Code is licensed under [Apache-2.0](LICENSE). Documentation is licensed under CC-BY-4.0.
