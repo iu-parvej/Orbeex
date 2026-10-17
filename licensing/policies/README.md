@@ -14,4 +14,4 @@ repository root and summarized here for governance traceability.
 | Contribution | [`/CONTRIBUTING.md`](../../CONTRIBUTING.md) | How to contribute |
 | Code of conduct | [`/CODE_OF_CONDUCT.md`](../../CODE_OF_CONDUCT.md) | Community standards |
 
-Decisions behind these policies are recorded in `brain/decisions/` (ADR-0012, ADR-0015).
+Decisions behind these policies are recorded as ADRs by the core team.

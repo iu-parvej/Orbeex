@@ -67,7 +67,7 @@ provider, that provider and you determine the applicable terms.
 ## 7. Changes to this policy
 
 Material changes to this policy are recorded in the changelog and, for structural changes,
-in an Architecture Decision Record under `brain/decisions/`.
+in a documented policy update.
 
 ## 8. Contact
 

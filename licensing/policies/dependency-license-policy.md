@@ -1,7 +1,7 @@
 # Orbeex Dependency License Policy
 
 Enforced by `cargo-deny` (`deny.toml`) in CI. A failing `cargo deny check` is a **blocking**
-build failure. Full policy: `MASTER_BLUEPRINT.md` §4.
+build failure. This file is the binding policy.
 
 ## Allowed (permissive)
 

@@ -46,7 +46,7 @@ Markdown with front-matter. `type` and `ref` are derived from the filename; `are
 ```markdown
 ---
 area: engine            # engine | ai | platform | plugin | docs | infra
-feature: F-0042         # optional feature ID from features/registry.yaml
+feature: F-0042         # optional feature ID assigned by maintainers
 breaking: false         # true if this is a breaking change
 ---
 

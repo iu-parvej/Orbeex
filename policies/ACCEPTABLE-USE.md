@@ -32,10 +32,10 @@ When using AI features:
 ## No warranty
 
 Orbeex is provided "as is", without warranty of any kind, as stated in the
-[Apache-2.0 license](LICENSE). Outputs of spatial analysis must be verified before use in
+[Apache-2.0 license](../LICENSE). Outputs of spatial analysis must be verified before use in
 decisions with real-world consequences.
 
 ## Reporting
 
 Report misuse of the project's name or resources as described in
-[TRADEMARK.md](TRADEMARK.md) and [SECURITY.md](SECURITY.md).
+[TRADEMARK.md](TRADEMARK.md) and [SECURITY.md](../SECURITY.md).

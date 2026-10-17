@@ -79,7 +79,7 @@ Report vulnerabilities privately — see [SECURITY.md](SECURITY.md). Please do n
 
 ## Policies
 
-[Privacy](PRIVACY.md) · [Data usage](DATA-USAGE.md) · [Acceptable use](ACCEPTABLE-USE.md) · [Trademark](TRADEMARK.md) · [Governance](GOVERNANCE.md)
+[Privacy](policies/PRIVACY.md) · [Data usage](policies/DATA-USAGE.md) · [Acceptable use](policies/ACCEPTABLE-USE.md) · [Trademark](policies/TRADEMARK.md) · [Governance](policies/GOVERNANCE.md)
 
 ## License
 

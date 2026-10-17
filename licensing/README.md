@@ -2,7 +2,7 @@
 
 All legal documentation and license usage policies for Orbeex.
 
-The full policy is defined in **`MASTER_BLUEPRINT.md` §4**.
+The binding policy is `policies/dependency-license-policy.md` (in this folder) and is enforced by `cargo-deny` in CI.
 
 ## Contents
 

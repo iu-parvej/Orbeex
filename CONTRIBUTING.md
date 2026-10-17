@@ -46,7 +46,7 @@ pre-commit install
 
 ## Pull request requirements
 
-Every pull request must satisfy the project's Definition of Done (`MASTER_BLUEPRINT.md` §8.1):
+Every pull request must satisfy the project's Definition of Done:
 
 1. Documentation updated in the same PR as any behavior change.
 2. A change fragment added under `changes/unreleased/`:
@@ -57,13 +57,14 @@ Every pull request must satisfy the project's Definition of Done (`MASTER_BLUEPR
 
 ## Feature workflow
 
-Features move through `features/backlog → in-progress → completed` and are recorded in
-`features/registry/features.yaml`. See `features/README.md`.
+Small features: open an issue, get a nod from a maintainer, then build.
+Large features: proposed through an issue first; maintainers track and prioritize them
+before implementation begins.
 
 ## Architectural changes
 
-Any structural or architectural change requires an ADR before implementation. See
-`brain/decisions/README.md`.
+Any structural or architectural change requires an Architecture Decision Record (ADR)
+approved by the maintainers before implementation.
 
 ## License of contributions
 

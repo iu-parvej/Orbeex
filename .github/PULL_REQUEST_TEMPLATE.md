@@ -17,7 +17,7 @@
 - [ ] Refactor / performance (`refactor` / `perf`)
 - [ ] Build / CI / chore (`build` / `ci` / `chore`)
 
-## Definition of Done (MASTER_BLUEPRINT.md §8.1)
+## Definition of Done
 
 - [ ] Tests added/updated and passing.
 - [ ] `cargo fmt --check`, `cargo clippy -D warnings`, `cargo test` pass.
